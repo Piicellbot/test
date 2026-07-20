@@ -228,19 +228,7 @@
             stroke: #dc2626 !important;
         }
 
-        /* ===== باکس دوتا آیکون ===== */
-        .menu-icons-box {
-            display: flex !important;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 18px;
-            padding: 6px 10px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
-        }
-
+        /* ===== آیکون قفل ===== */
         .extra-icon {
             display: flex;
             width: 46px;
@@ -251,7 +239,18 @@
             justify-content: center;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent !important;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .extra-icon:hover {
+            background: rgba(255, 255, 255, 0.7);
+            transform: scale(1.05);
+        }
+
+        .extra-icon:active {
+            transform: scale(0.92);
         }
 
         .extra-icon svg {
@@ -264,28 +263,7 @@
             stroke: var(--text-dark);
         }
 
-        .mobile-menu-btn {
-            display: flex;
-            width: 46px;
-            height: 46px;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.4);
-            border: none;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent !important;
-        }
-
-        .mobile-menu-btn svg {
-            width: 30px;
-            height: 30px;
-            display: block;
-            stroke: var(--text-dark);
-        }
-
-        .mobile-menu-btn.clicked {
+        .extra-icon.clicked {
             animation: menuBtnClick 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
@@ -296,7 +274,30 @@
             100% { transform: scale(1); }
         }
 
-        .extra-icon.clicked {
+        /* ===== دکمه همبرگر - فقط در موبایل ===== */
+        .mobile-menu-btn {
+            display: none;
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu-btn svg {
+            width: 30px;
+            height: 30px;
+            display: block;
+            stroke: var(--text-dark);
+        }
+
+        .mobile-menu-btn.clicked {
             animation: menuBtnClick 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
@@ -453,13 +454,32 @@
             .header .nav > div:last-child {
                 gap: 8px;
             }
-            
-            .menu-icons-box {
-                margin-right: -4px;
-            }
 
             .logo .logo-text {
                 font-size: 1.5rem;
+            }
+
+            /* نمایش دکمه همبرگر در موبایل */
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+
+            /* آیکون قفل در موبایل داخل باکس */
+            .extra-icon {
+                border: none;
+                background: rgba(255, 255, 255, 0.4);
+            }
+
+            .menu-icons-box {
+                display: flex !important;
+                align-items: center;
+                gap: 6px;
+                background: rgba(255, 255, 255, 0.7);
+                border: 1px solid rgba(255, 255, 255, 0.5);
+                border-radius: 18px;
+                padding: 6px 10px;
+                backdrop-filter: blur(12px);
+                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
             }
         }
 
@@ -569,7 +589,7 @@
             }
         }
 
-        /* ===== دسکتاپ - نمایش منوی افقی ===== */
+        /* ===== دسکتاپ - بدون همبرگر ===== */
         @media (min-width: 993px) {
             .nav-links {
                 display: flex !important;
@@ -604,12 +624,25 @@
                 animation: none;
             }
 
-            .menu-icons-box {
-                display: flex !important;
+            /* مخفی کردن دکمه همبرگر در دسکتاپ */
+            .mobile-menu-btn {
+                display: none !important;
             }
 
-            .mobile-menu-btn.clicked {
-                animation: none !important;
+            /* آیکون قفل تنها در دسکتاپ */
+            .menu-icons-box {
+                display: flex !important;
+                background: transparent;
+                border: none;
+                padding: 0;
+                backdrop-filter: none;
+                box-shadow: none;
+                gap: 0;
+            }
+
+            .extra-icon {
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                background: rgba(255, 255, 255, 0.4);
             }
         }
     </style>
@@ -776,16 +809,12 @@
             isMenuOpen = false;
         }
 
+        // فقط در موبایل کلیک روی همبرگر منو را باز/بسته کند
         mobileMenuBtn.addEventListener('click', function(e) {
             e.stopPropagation();
-            
-            // در دسکتاپ فقط انیمیشن کلیک اجرا شود
-            if (!isMobile()) {
-                animateElement(this, 'clicked');
-                return;
-            }
-            
             animateElement(this, 'clicked');
+            
+            if (!isMobile()) return;
             
             if (isMenuOpen) {
                 closeMenu();
