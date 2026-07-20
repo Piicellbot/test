@@ -3,572 +3,875 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>سین‌یار | شیشه‌ای</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <title>سین‌یار | منوی شیشه‌ای</title>
+    
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    
     <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #a855f7;
+            --bg-light: #f8fafc;
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: rgba(0, 0, 0, 0.06);
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            outline: none;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
         }
 
-        html {
-            scroll-behavior: smooth !important;
+        *:focus {
+            outline: none !important;
         }
-
-        /* ============================================================
-           حذف کامل نوار اسکرول
-           ============================================================ */
+        
         body {
-            font-family: 'Rubik', sans-serif;
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
             direction: rtl;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .background-blobs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: floatBlob 14s infinite ease-in-out alternate;
+        }
+
+        .blob-1 {
+            top: -10%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: #e0e7ff;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        }
+
+        .blob-2 {
+            bottom: -10%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: #f3e8ff;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation-delay: -6s;
+        }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            50% { transform: translate(40px, -30px) rotate(5deg) scale(1.1); }
+            100% { transform: translate(-30px, 40px) rotate(-5deg) scale(0.95); }
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            z-index: 999;
+            padding: 0 28px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(1.4);
+            -webkit-backdrop-filter: blur(24px) saturate(1.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 
+                0 8px 40px rgba(99, 102, 241, 0.08),
+                0 4px 20px rgba(0, 0, 0, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .header.scrolled {
+            top: 10px;
+            height: 58px;
+            width: 95%;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 28px;
+            box-shadow: 
+                0 12px 50px rgba(99, 102, 241, 0.1),
+                0 4px 25px rgba(0, 0, 0, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .header .nav {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        /* ===== LOGO - غیرفعال ===== */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-dark);
+            cursor: default !important;
+            pointer-events: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        .logo .logo-icon {
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-            background: #e8e8ec;
-            background-image: 
-                radial-gradient(ellipse at 30% 40%, rgba(108, 92, 231, 0.08) 0%, transparent 60%),
-                radial-gradient(ellipse at 70% 60%, rgba(0, 0, 0, 0.04) 0%, transparent 60%);
-            position: relative;
-            -webkit-overflow-scrolling: touch;
-            
-            /* مخفی کردن اسکرولبار در فایرفاکس */
-            scrollbar-width: none;
-            -ms-overflow-style: none;
         }
 
-        /* مخفی کردن اسکرولبار در کروم، سافاری، اج */
-        body::-webkit-scrollbar {
-            display: none;
-            width: 0;
-            height: 0;
-        }
-
-        /* ============================================================
-           بقیه استایل‌ها
-           ============================================================ */
-        .bg-circle {
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0.5;
-        }
-        .bg-circle-1 {
-            width: 300px;
-            height: 300px;
-            top: -80px;
-            right: -80px;
-            background: rgba(108, 92, 231, 0.15);
-            filter: blur(40px);
-        }
-        .bg-circle-2 {
-            width: 250px;
-            height: 250px;
-            bottom: -60px;
-            left: -60px;
-            background: rgba(108, 92, 231, 0.12);
-            filter: blur(30px);
-        }
-        .bg-circle-3 {
-            width: 150px;
-            height: 150px;
-            top: 50%;
-            left: 20%;
-            background: rgba(255, 255, 255, 0.4);
-            filter: blur(20px);
-        }
-
-        .box {
-            max-width: 620px;
-            width: 100%;
-            border-radius: 48px;
-            padding: 32px 32px 28px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(50px);
-            -webkit-backdrop-filter: blur(50px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.06),
-                0 10px 30px rgba(0, 0, 0, 0.04),
-                0 4px 12px rgba(0, 0, 0, 0.02),
-                inset 0 1px 1px rgba(255, 255, 255, 0.8),
-                inset 0 -1px 1px rgba(0, 0, 0, 0.05);
-            
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .box:hover {
-            transform: translateY(-4px);
-            box-shadow: 
-                0 30px 80px rgba(0, 0, 0, 0.08),
-                0 15px 40px rgba(0, 0, 0, 0.05),
-                0 6px 16px rgba(0, 0, 0, 0.03),
-                inset 0 1px 2px rgba(255, 255, 255, 0.9);
-        }
-
-        .hero-box {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border-radius: 28px;
-            padding: 28px 28px 24px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            position: relative;
-            
-            box-shadow: 
-                0 12px 40px rgba(0, 0, 0, 0.04),
-                0 6px 16px rgba(0, 0, 0, 0.02),
-                inset 0 1px 1px rgba(255, 255, 255, 0.7);
-            
-            mask-image: linear-gradient(to bottom, 
-                rgba(0, 0, 0, 0) 0%,
-                rgba(0, 0, 0, 0.3) 8%,
-                rgba(0, 0, 0, 0.8) 20%,
-                rgba(0, 0, 0, 1) 35%,
-                rgba(0, 0, 0, 1) 65%,
-                rgba(0, 0, 0, 0.8) 80%,
-                rgba(0, 0, 0, 0.3) 92%,
-                rgba(0, 0, 0, 0) 100%
-            );
-            -webkit-mask-image: linear-gradient(to bottom, 
-                rgba(0, 0, 0, 0) 0%,
-                rgba(0, 0, 0, 0.3) 8%,
-                rgba(0, 0, 0, 0.8) 20%,
-                rgba(0, 0, 0, 1) 35%,
-                rgba(0, 0, 0, 1) 65%,
-                rgba(0, 0, 0, 0.8) 80%,
-                rgba(0, 0, 0, 0.3) 92%,
-                rgba(0, 0, 0, 0) 100%
-            );
-        }
-
-        .hero-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(108, 92, 231, 0.25), 
-                transparent
-            );
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 3;
-        }
-
-        .hero-box::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 45%;
-            background: linear-gradient(180deg, 
-                rgba(255, 255, 255, 0.15) 0%,
-                transparent 100%
-            );
-            border-radius: 28px 28px 0 0;
-            pointer-events: none;
-            z-index: 3;
-        }
-
-        .hero-icon-full {
-            width: 100%;
-            max-width: 280px;
-            height: auto;
-            margin: 0 auto 4px;
-            display: block;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-icon-full svg {
-            width: 100%;
-            height: 100%;
+        .logo .logo-icon svg {
+            width: 38px;
+            height: 38px;
             display: block;
         }
 
-        .title-box {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 18px;
-            padding: 12px 24px;
-            margin: 6px auto 10px;
-            display: inline-block;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 
-                0 4px 20px rgba(0, 0, 0, 0.02),
-                inset 0 1px 1px rgba(255, 255, 255, 0.3);
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-box .title {
-            font-size: 1.6rem;
+        .logo .logo-text {
+            font-family: 'Baloo 2', 'Vazirmatn', sans-serif;
+            font-size: 1.7rem;
             font-weight: 800;
-            line-height: 1.4;
-            letter-spacing: -0.5px;
-            color: #1a1a2e;
-            
-            background: linear-gradient(135deg, 
-                #1a1a2e 0%,
-                #2d1b69 35%,
-                #6c5ce7 65%,
-                #2d1b69 100%
-            );
+            color: var(--text-dark);
+            letter-spacing: 0px;
+            background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            
-            text-shadow: 0 2px 30px rgba(108, 92, 231, 0.06);
+            text-shadow: none;
+            line-height: 1.2;
         }
 
-        .hero-box .title .sep {
-            font-weight: 300;
-            color: #aaa;
-            -webkit-text-fill-color: #aaa;
-            opacity: 0.3;
-        }
-
-        .hero-box .title .bold {
-            font-weight: 900;
-        }
-
-        .hero-box .description {
-            font-size: 0.95rem;
-            color: #1a1a2e;
-            font-weight: 400;
-            line-height: 2.1;
-            text-align: justify;
-            position: relative;
-            z-index: 2;
-            padding: 0 4px;
-            letter-spacing: 0.2px;
-        }
-
-        .hero-box .description strong {
-            color: #2d1b69;
-            font-weight: 700;
-        }
-
-        .hero-box .description .highlight-text {
-            color: #6c5ce7;
-            font-weight: 600;
-        }
-
-        .buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .btn-first {
-            grid-column: 1 / -1;
-        }
-
-        .btn-second, .btn-third {
-            grid-column: span 1;
-        }
-
-        .btn {
+        .nav-links {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 14px 12px;
-            border-radius: 18px;
-            font-family: 'Rubik', sans-serif;
-            font-weight: 500;
-            font-size: 0.78rem;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: none;
-
-            background: rgba(255, 255, 255, 0.22);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.55);
-            color: #222;
-            
-            box-shadow: 
-                0 8px 24px rgba(0, 0, 0, 0.04),
-                0 4px 12px rgba(0, 0, 0, 0.02),
-                0 2px 6px rgba(0, 0, 0, 0.01),
-                inset 0 1px 2px rgba(255, 255, 255, 0.8),
-                inset 0 -1px 1px rgba(0, 0, 0, 0.03);
+            gap: 4px;
+            list-style: none;
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
+        .nav-link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 16px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            text-decoration: none;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        .nav-link svg {
+            width: 26px;
+            height: 26px;
+            display: block;
+            flex-shrink: 0;
+            stroke: var(--text-gray);
+        }
+
+        .auth-btn {
+            background: #E6E6FA !important;
+            color: var(--text-dark) !important;
+            box-shadow: 0 4px 20px rgba(230, 230, 250, 0.3);
+            font-weight: 600 !important;
+            border-radius: 16px !important;
+        }
+        
+        .auth-btn svg {
+            stroke: var(--text-dark) !important;
+        }
+
+        .logout-btn {
+            color: #dc2626 !important;
+            background: rgba(220, 38, 38, 0.08) !important;
+            border-radius: 16px !important;
+        }
+
+        .logout-btn svg {
+            stroke: #dc2626 !important;
+        }
+
+        /* ===== باکس دوتا آیکون ===== */
+        .menu-icons-box {
+            display: flex !important;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 18px;
+            padding: 6px 10px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .extra-icon {
+            display: flex;
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.4);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent !important;
+            border: none;
+        }
+
+        .extra-icon svg {
+            width: 28px;
+            height: 28px;
+            display: block;
+        }
+
+        .extra-icon svg path {
+            stroke: var(--text-dark);
+        }
+
+        .mobile-menu-btn {
+            display: flex;
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.4);
+            border: none;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        .mobile-menu-btn svg {
+            width: 30px;
+            height: 30px;
+            display: block;
+            stroke: var(--text-dark);
+        }
+
+        .mobile-menu-btn.clicked {
+            animation: menuBtnClick 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes menuBtnClick {
+            0% { transform: scale(1); }
+            40% { transform: scale(0.85); }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .extra-icon.clicked {
+            animation: menuBtnClick 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        /* ===== منوی موبایل ===== */
+        .nav-links.active {
+            animation: menuOpen 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes menuOpen {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.9) rotateX(-10deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotateX(0deg);
+            }
+        }
+
+        .nav-links.closing {
+            animation: menuClose 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes menuClose {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotateX(0deg);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.9) rotateX(-10deg);
+            }
+        }
+
+        .nav-links.active .nav-link {
+            animation: linkFadeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+        }
+
+        .nav-links.active .nav-link:nth-child(1) { animation-delay: 0.05s; }
+        .nav-links.active .nav-link:nth-child(2) { animation-delay: 0.1s; }
+        .nav-links.active .nav-link:nth-child(3) { animation-delay: 0.15s; }
+        .nav-links.active .nav-link:nth-child(4) { animation-delay: 0.2s; }
+
+        @keyframes linkFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .menu-overlay {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            height: 50%;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 100%);
-            pointer-events: none;
-            border-radius: 17px 17px 0 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 998;
+            animation: overlayFade 0.4s ease;
         }
 
-        .btn i {
-            font-size: 0.8rem;
-            color: #444;
-            transition: color 0.2s ease;
+        .menu-overlay.active {
+            display: block;
         }
 
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.42);
-            border-color: rgba(255, 255, 255, 0.85);
-            color: #000;
-            box-shadow: 
-                0 16px 40px rgba(0, 0, 0, 0.08),
-                0 8px 24px rgba(0, 0, 0, 0.05),
-                0 4px 12px rgba(0, 0, 0, 0.03),
-                inset 0 1px 3px rgba(255, 255, 255, 1);
-            transform: none;
+        .menu-overlay.closing {
+            animation: overlayFadeOut 0.4s ease forwards;
         }
 
-        .btn:hover i {
-            color: #000;
+        @keyframes overlayFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .btn-primary {
-            background: rgba(255, 255, 255, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.75);
-            color: #000;
-            font-weight: 600;
-            box-shadow: 
-                0 12px 32px rgba(108, 92, 231, 0.10),
-                0 6px 16px rgba(0, 0, 0, 0.04),
-                0 3px 8px rgba(0, 0, 0, 0.02),
-                inset 0 1px 2px rgba(255, 255, 255, 0.95);
+        @keyframes overlayFadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
         }
 
-        .btn-primary::before {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-        }
-
-        .btn-primary:hover {
-            background: rgba(255, 255, 255, 0.65);
-            border-color: #ffffff;
-            box-shadow: 
-                0 20px 48px rgba(108, 92, 231, 0.15),
-                0 10px 28px rgba(0, 0, 0, 0.06),
-                0 4px 12px rgba(0, 0, 0, 0.03),
-                inset 0 1px 3px #ffffff;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            color: #111;
-            padding: 12px 28px;
-            border-radius: 18px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            z-index: 999;
-            box-shadow: 
-                0 16px 40px rgba(0, 0, 0, 0.08),
-                0 8px 24px rgba(0, 0, 0, 0.04),
-                0 4px 12px rgba(0, 0, 0, 0.02);
-        }
-
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: #111;
-            font-size: 1.2rem;
+        /* ===== انیمیشن کلیک برای همه المان‌ها ===== */
+        .clickable {
             cursor: pointer;
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px) scale(0.8);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .scroll-top.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
+        .clickable.clicked {
+            animation: clickPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .scroll-top:hover {
-            background: rgba(255, 255, 255, 0.5);
-            border-color: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+        @keyframes clickPop {
+            0% { transform: scale(1); }
+            30% { transform: scale(0.85); }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
-        .scroll-top i {
-            transition: transform 0.3s ease;
-        }
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .header {
+                width: 95%;
+                padding: 0 18px;
+                height: 62px;
+                border-radius: 28px;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 72px;
+                right: 0;
+                left: 0;
+                background: rgba(255, 255, 255, 0.85);
+                backdrop-filter: blur(32px) saturate(1.4);
+                -webkit-backdrop-filter: blur(32px) saturate(1.4);
+                padding: 16px;
+                border-radius: 24px;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                flex-direction: column;
+                align-items: stretch;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+                gap: 2px;
+                transform-origin: top center;
+                z-index: 999;
+                width: 100%;
+            }
 
-        .scroll-top:hover i {
-            transform: translateY(-2px);
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-link {
+                padding: 14px 18px;
+                justify-content: flex-start;
+                border-radius: 16px;
+                width: 100%;
+                transform-origin: right center;
+            }
+
+            .nav-link svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            .header .nav > div:last-child {
+                gap: 8px;
+            }
+            
+            .menu-icons-box {
+                margin-right: -4px;
+            }
+
+            .logo .logo-text {
+                font-size: 1.5rem;
+            }
         }
 
         @media (max-width: 600px) {
-            .box { padding: 20px 16px 18px; border-radius: 32px; }
-            .btn { padding: 12px 8px; font-size: 0.72rem; border-radius: 14px; }
-            .hero-box { padding: 20px 16px 16px; border-radius: 22px; }
-            .hero-box .title { font-size: 1.2rem; }
-            .hero-box .description { font-size: 0.82rem; line-height: 1.9; }
-            .hero-icon-full { max-width: 200px; }
-            .buttons { gap: 6px; margin-top: 14px; }
-            .title-box { padding: 8px 16px; }
-            .scroll-top { width: 44px; height: 44px; font-size: 1rem; bottom: 20px; right: 20px; }
+            .header {
+                padding: 0 14px;
+                height: 58px;
+                top: 12px;
+                border-radius: 24px;
+            }
+            .logo .logo-text {
+                font-size: 1.3rem;
+            }
+            .logo .logo-icon {
+                width: 32px;
+                height: 32px;
+            }
+            .logo .logo-icon svg {
+                width: 32px;
+                height: 32px;
+            }
+            .header.scrolled {
+                height: 54px;
+                top: 8px;
+                border-radius: 20px;
+            }
+            
+            .menu-icons-box {
+                padding: 4px 8px;
+                gap: 4px;
+                border-radius: 16px;
+                margin-right: -6px;
+            }
+            
+            .extra-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 12px;
+            }
+            
+            .extra-icon svg {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .mobile-menu-btn {
+                width: 40px;
+                height: 40px;
+                border-radius: 12px;
+            }
+            
+            .mobile-menu-btn svg {
+                width: 26px;
+                height: 26px;
+            }
+            
+            .nav-link svg {
+                width: 26px;
+                height: 26px;
+            }
+
+            .nav-links {
+                border-radius: 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .header {
+                padding: 0 10px;
+                border-radius: 20px;
+            }
+            .logo .logo-text {
+                font-size: 1.1rem;
+            }
+            .menu-icons-box {
+                padding: 3px 6px;
+                gap: 3px;
+                margin-right: -8px;
+                border-radius: 14px;
+            }
+            .extra-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+            }
+            .extra-icon svg {
+                width: 22px;
+                height: 22px;
+            }
+            .mobile-menu-btn {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+            }
+            .mobile-menu-btn svg {
+                width: 24px;
+                height: 24px;
+            }
+            .nav-link svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .nav-links {
+                border-radius: 18px;
+                padding: 12px;
+            }
+        }
+
+        /* ===== دسکتاپ - نمایش منوی افقی ===== */
+        @media (min-width: 993px) {
+            .nav-links {
+                display: flex !important;
+                position: static;
+                background: transparent;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                padding: 0;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+                flex-direction: row;
+                align-items: center;
+                gap: 4px;
+                width: auto;
+                transform: none;
+                animation: none;
+                opacity: 1 !important;
+            }
+
+            .nav-links.active {
+                animation: none;
+                opacity: 1 !important;
+            }
+
+            .nav-links.closing {
+                animation: none;
+                opacity: 1 !important;
+            }
+
+            .nav-links.active .nav-link {
+                animation: none;
+            }
+
+            .menu-icons-box {
+                display: flex !important;
+            }
+
+            .mobile-menu-btn.clicked {
+                animation: none !important;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-circle bg-circle-1"></div>
-    <div class="bg-circle bg-circle-2"></div>
-    <div class="bg-circle bg-circle-3"></div>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
 
-    <div class="box">
+    <div class="menu-overlay" id="menuOverlay"></div>
 
-        <div class="hero-box">
-
-            <div class="hero-icon-full">
-                <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000">
-                    <path d="M905.5 568.6c-1.1 11-11.2 16.5-19.8 21.5-8 4.6-16 9.3-23.9 13.9-12.8 7.4-25.5 14.8-38.3 22.2-16 9.3-31.9 18.6-47.9 27.8-17.6 10.2-35.2 20.5-52.9 30.7-17.7 10.3-35.4 20.6-53.2 30.9-16.3 9.5-32.5 18.9-48.8 28.4-13.3 7.7-26.5 15.4-39.8 23.1-8.7 5-17.4 10.1-26.1 15.1-6.6 3.8-12.8 7.6-20.3 9.8-19.5 5.6-41.1 3.7-58.7-6.5-6.3-3.7-12.7-7.3-19-11-11.6-6.7-23.1-13.3-34.7-20-15.2-8.8-30.4-17.6-45.6-26.3-17.3-10-34.7-20-52-30-17.9-10.3-35.8-20.7-53.7-31-16.9-9.8-33.8-19.5-50.8-29.3L176.8 613c-10.3-6-20.7-11.9-31-17.9-4.7-2.7-9.4-5.4-14.1-8.2-7.4-4.3-14.7-11.1-14.7-20.3 0 8.4 0 16.8-0.1 25.3 0 3-0.2 6.1 0 9.2 0.6 8.1 7 14.4 13.7 18.4 4.1 2.5 8.3 4.8 12.5 7.2 10.8 6.2 21.6 12.5 32.4 18.7 15.6 9 31.1 18 46.7 27 18.5 10.7 37.1 21.4 55.6 32.1 19.3 11.2 38.6 22.3 58 33.5 18.4 10.6 36.7 21.2 55.1 31.8 15.3 8.8 30.5 17.6 45.8 26.4 10.3 6 20.7 11.9 31 17.9 6 3.4 11.9 7.3 18.4 9.7 20.3 7.4 44.1 5.8 62.8-5.1 7.1-4.1 14.2-8.3 21.3-12.4 13.1-7.6 26.2-15.2 39.2-22.8 17.1-9.9 34.1-19.8 51.2-29.8 19.1-11.1 38.2-22.2 57.2-33.3l57.3-33.3c17.1-10 34.2-19.9 51.4-29.9 13.3-7.7 26.6-15.4 39.9-23.2 7.3-4.3 14.7-8.5 22-12.8 2.2-1.3 4.5-2.6 6.6-4.1 5.6-4.2 10-10 10.1-17.3 0.1-3.7 0-7.3 0-11 0-7.3 0-14.7 0.1-22 0.4 0.8 0.3 1.3 0.3 1.8 0 0.3 0-0.2 0 0zM905.6 567.1z" fill="#7A9EFD"/>
-                    <path d="M891.3 547.1c19 11 19.1 28.9 0.2 39.9L547.1 787.1c-18.9 11-49.8 11-68.8 0L131.6 587c-19-11-19.1-28.9-0.2-39.9L475.8 347c18.9-11 49.8-11 68.8 0l346.7 200.1z" fill="#E4ECF9"/>
-                    <path d="M608.5 194.9c-0.1 0-0.1 0 0 0-0.3-0.2-0.5-0.3-0.8-0.4h-0.1c-0.1 0-0.2-0.1-0.2-0.1-0.1 0-0.2-0.1-0.4-0.1-0.1 0-0.3-0.1-0.4-0.1-0.1 0-0.2 0-0.2-0.1h-0.1c-0.3 0-0.5-0.1-0.8-0.1h-1.9c-0.1 0-0.2 0-0.3 0.1-0.2 0-0.4 0.1-0.6 0.1-0.1 0-0.2 0-0.3 0.1-0.1 0-0.2 0.1-0.3 0.1-0.3 0.1-0.6 0.2-1 0.3-0.1 0-0.2 0.1-0.3 0.1-0.1 0-0.1 0.1-0.2 0.1-0.6 0.2-1.1 0.5-1.7 0.8L292.7 372.6c-0.7 0.4-1.4 0.9-2.1 1.4-0.1 0.1-0.2 0.2-0.4 0.3-0.6 0.5-1.3 1.1-1.9 1.7-0.1 0-0.1 0.1-0.2 0.1l-0.3 0.3c-0.3 0.3-0.6 0.6-0.9 1l-0.3 0.3c-0.1 0.1-0.2 0.2-0.2 0.3-0.2 0.2-0.4 0.4-0.5 0.6-0.1 0.1-0.2 0.3-0.3 0.4-0.1 0.1-0.2 0.3-0.3 0.4-0.1 0.2-0.3 0.3-0.4 0.5l-0.3 0.3c-0.1 0.2-0.3 0.4-0.4 0.6-0.1 0.1-0.2 0.3-0.3 0.4 0 0.1-0.1 0.1-0.1 0.2-0.2 0.4-0.5 0.8-0.7 1.2v0.1c0 0.1-0.1 0.2-0.1 0.2-0.2 0.3-0.3 0.6-0.5 0.8-0.1 0.1-0.1 0.3-0.2 0.4-0.1 0.1-0.1 0.3-0.2 0.4-0.1 0.1-0.1 0.2-0.2 0.4-0.1 0.3-0.3 0.6-0.4 0.9 0 0.1-0.1 0.1-0.1 0.2v0.1c-0.2 0.4-0.3 0.8-0.5 1.2 0 0.1 0 0.1-0.1 0.2s-0.1 0.3-0.2 0.4c-0.1 0.2-0.2 0.4-0.2 0.6-0.1 0.2-0.1 0.3-0.1 0.5-0.1 0.2-0.1 0.4-0.2 0.6 0 0.1-0.1 0.2-0.1 0.4-0.1 0.2-0.1 0.4-0.1 0.6-0.1 0.2-0.1 0.5-0.2 0.7 0 0.1 0 0.2-0.1 0.3 0 0.2-0.1 0.3-0.1 0.5-0.1 0.4-0.1 0.7-0.2 1.1 0 0.1 0 0.2-0.1 0.3v0.3c-0.1 0.8-0.2 1.6-0.2 2.4l0.6 210.8c0 2.1 0.4 3.9 1.1 5.4 0.7 1.5 1.7 2.6 2.9 3.3l14.8 8.6c-2.4-1.4-4-4.4-4-8.7l-0.4-211c0-0.8 0.1-1.6 0.2-2.4 0-0.2 0-0.4 0.1-0.6 0.1-0.4 0.1-0.7 0.2-1.1 0-0.2 0.1-0.5 0.1-0.7 0.1-0.2 0.1-0.5 0.2-0.7 0.1-0.3 0.2-0.6 0.3-1 0.1-0.2 0.1-0.4 0.2-0.6 0.1-0.4 0.2-0.7 0.4-1.1 0.1-0.1 0.1-0.3 0.2-0.4l0.6-1.5c0-0.1 0.1-0.1 0.1-0.2 0.2-0.4 0.4-0.9 0.6-1.3 0.1-0.1 0.1-0.3 0.2-0.4 0.2-0.4 0.4-0.8 0.7-1.2 0-0.1 0.1-0.2 0.1-0.2 0.3-0.5 0.6-0.9 0.9-1.4 0.1-0.1 0.2-0.3 0.3-0.4 0.2-0.3 0.4-0.6 0.7-1 0.1-0.2 0.3-0.3 0.4-0.5 0.2-0.3 0.4-0.5 0.6-0.8 0.2-0.2 0.4-0.4 0.5-0.6 0.2-0.2 0.3-0.4 0.5-0.6 0.3-0.3 0.6-0.6 0.9-1 0.1-0.2 0.3-0.3 0.5-0.5 0.6-0.6 1.2-1.2 1.9-1.7 0.1-0.1 0.2-0.2 0.4-0.3 0.7-0.5 1.4-1 2.1-1.4L614 204.3c0.6-0.3 1.1-0.6 1.7-0.8 0.2-0.1 0.4-0.1 0.5-0.2l0.9-0.3c0.2-0.1 0.4-0.1 0.6-0.2 0.2 0 0.4-0.1 0.6-0.1 0.2 0 0.5-0.1 0.7-0.1h1.5c0.3 0 0.7 0.1 1 0.1 0.1 0 0.2 0 0.2 0.1 0.3 0.1 0.5 0.1 0.7 0.2 0.1 0 0.2 0.1 0.2 0.1 0.3 0.1 0.6 0.3 0.9 0.4l-15-8.6z" fill="#2A2ABC"/>
-                    <path d="M613.6 204.5c7.5-4.3 13.6-0.8 13.6 7.7l0.6 210.8c0 8.6-6.1 19.1-13.5 23.4L308.2 623.1c-7.5 4.3-13.6 0.8-13.6-7.7l-0.6-210.8c0-8.6 6.1-19.1 13.5-23.4l306.1-176.7z" fill="#4040FF"/>
-                    <path d="M371.4 454.3c17-9.8 30.8-2.2 30.8 17v2.2c0 7.6-13.7 15.8-30.7 25.6l-19.8 11.4c-17 9.8-30.7 17.7-30.8 9.9v-2.2c-0.1-19.2 13.7-42.7 30.6-52.5l19.9-11.4z" fill="#2828CE"/>
-                    <path d="M324.7 526.8c0 1 0.3 1.8 0.7 2.3 0.2 0.2 0.3 0.3 0.5 0.4l10.8 6.3c-0.8-0.5-1.3-1.4-1.3-2.8v-2.2l-10.8-6.3 0.1 2.3z" fill="#ACC5EA"/>
-                    <path d="M397.2 458.5c-0.1 0-0.1-0.1-0.2-0.1-0.5-0.3-1-0.5-1.5-0.7-0.1 0-0.2-0.1-0.3-0.1-0.2-0.1-0.3-0.1-0.5-0.2-0.3-0.1-0.5-0.2-0.8-0.3-0.3-0.1-0.6-0.1-0.9-0.2-0.2 0-0.3-0.1-0.5-0.1-0.1 0-0.2 0-0.3-0.1-0.6-0.1-1.2-0.2-1.9-0.2h-2c-0.2 0-0.4 0-0.5 0.1-0.3 0-0.6 0.1-0.9 0.1-0.3 0-0.5 0-0.8 0.1-0.3 0-0.5 0.1-0.8 0.2-0.4 0.1-0.8 0.2-1.3 0.3-0.2 0.1-0.4 0.1-0.7 0.1-0.5 0.1-1.1 0.3-1.7 0.5h-0.1c-0.6 0.2-1.3 0.5-1.9 0.7-0.3 0.1-0.5 0.2-0.8 0.4-0.2 0.1-0.5 0.2-0.7 0.3-0.9 0.4-1.9 0.9-2.9 1.5l-19.8 11.4c-1 0.6-2 1.2-2.9 1.9-0.3 0.2-0.6 0.5-0.9 0.7-0.7 0.5-1.3 0.9-1.9 1.5-0.4 0.3-0.7 0.6-1.1 0.9-0.6 0.5-1.2 1-1.7 1.5-0.4 0.3-0.7 0.7-1.1 1-0.2 0.2-0.5 0.4-0.7 0.7l-0.6 0.6c-0.7 0.7-1.4 1.5-2.1 2.3l-0.7 0.7c-0.1 0.2-0.3 0.3-0.4 0.5l-1.2 1.5c-0.3 0.4-0.6 0.7-0.9 1.1-0.2 0.2-0.3 0.4-0.5 0.7-0.3 0.4-0.6 0.8-0.8 1.2-0.2 0.3-0.5 0.6-0.7 1-0.3 0.4-0.5 0.7-0.8 1.1-0.2 0.3-0.4 0.7-0.7 1-0.1 0.2-0.2 0.4-0.4 0.5-0.5 0.8-1 1.7-1.5 2.5v0.1c-0.5 0.8-1 1.7-1.4 2.6-0.1 0.2-0.2 0.4-0.3 0.7-0.2 0.3-0.3 0.6-0.4 0.9-0.2 0.3-0.4 0.7-0.5 1-0.3 0.5-0.5 1.1-0.8 1.7-0.1 0.2-0.2 0.5-0.3 0.7 0 0.1-0.1 0.2-0.1 0.3-0.4 0.9-0.8 1.8-1.1 2.7 0 0.1-0.1 0.2-0.1 0.3l-0.3 0.9c-0.2 0.5-0.4 1.1-0.6 1.6l-0.3 0.9c-0.1 0.4-0.3 0.8-0.4 1.2l-0.3 0.9c-0.1 0.4-0.2 0.8-0.3 1.3-0.1 0.5-0.3 1-0.4 1.5 0 0.2-0.1 0.4-0.2 0.6-0.1 0.4-0.1 0.7-0.2 1.1-0.1 0.8-0.3 1.5-0.4 2.3 0 0.2-0.1 0.5-0.1 0.7-0.1 0.5-0.1 1-0.1 1.4 0 0.4-0.1 0.7-0.1 1.1-0.1 1.1-0.1 2.2-0.1 3.3l10.8 6.3c0-1.1 0.1-2.2 0.1-3.3 0-0.4 0.1-0.7 0.1-1.1 0.1-0.7 0.2-1.4 0.3-2.2 0.1-0.8 0.2-1.5 0.4-2.3 0.1-0.6 0.2-1.2 0.3-1.7 0.1-0.5 0.2-1 0.4-1.5 0.2-0.7 0.4-1.5 0.6-2.2 0.1-0.4 0.2-0.8 0.4-1.2 0.3-0.8 0.6-1.7 0.9-2.5l0.3-0.9c0.4-1.1 0.9-2.2 1.4-3.3 0.1-0.2 0.2-0.5 0.3-0.7 0.4-0.9 0.8-1.8 1.3-2.7 0.1-0.3 0.3-0.6 0.4-0.9 0.6-1.1 1.1-2.2 1.8-3.2v-0.1c0.6-1 1.2-2.1 1.9-3.1 0.2-0.3 0.4-0.7 0.7-1l1.5-2.1 0.9-1.2c0.4-0.6 0.9-1.2 1.4-1.7l1.2-1.5c0.4-0.4 0.7-0.8 1.1-1.2 0.7-0.8 1.4-1.5 2.1-2.3l1.3-1.3c0.4-0.3 0.7-0.7 1.1-1 0.6-0.5 1.1-1 1.7-1.5 0.4-0.3 0.7-0.6 1.1-0.9 0.6-0.5 1.3-1 1.9-1.5 0.3-0.2 0.6-0.5 0.9-0.7 1-0.7 2-1.3 2.9-1.9l19.8-11.4c1-0.6 1.9-1 2.9-1.5 0.2-0.1 0.5-0.2 0.7-0.3 0.9-0.4 1.8-0.8 2.7-1.1h0.1c0.8-0.3 1.6-0.5 2.3-0.7 0.4-0.1 0.9-0.2 1.3-0.3 0.5-0.1 1.1-0.2 1.6-0.3 0.3 0 0.6-0.1 0.9-0.1 0.7 0 1.3-0.1 1.9 0h0.5c0.8 0 1.5 0.1 2.3 0.3 0.2 0 0.4 0.1 0.5 0.1 0.6 0.1 1.2 0.3 1.7 0.5 0.2 0.1 0.4 0.1 0.5 0.2 0.7 0.3 1.4 0.6 2 1l-11-6.4z" fill="#ACC5EA"/>
-                    <path d="M357.7 402.8c13.1-7.6 23.8-1.7 23.9 13.2s-10.6 33-23.7 40.6c-13.1 7.6-23.8 1.7-23.9-13.2s10.5-33 23.7-40.6z" fill="#2828CE"/>
-                    <path d="M385.9 466.9c17-9.8 30.8-2.2 30.8 17v2.2c0 7.6-13.7 15.8-30.7 25.6l-19.8 11.4c-17 9.8-30.7 17.7-30.8 9.9v-2.2c-0.1-19.2 13.7-42.7 30.6-52.5l19.9-11.4z" fill="#FFFFFF"/>
-                    <path d="M379.7 408.2s0.1 0 0 0c0.7-0.2 1.3-0.4 1.9-0.5 0.3-0.1 0.7-0.1 1-0.2 0.4-0.1 0.8-0.1 1.3-0.2 0.2 0 0.5-0.1 0.7-0.1h1.9c0.6 0 1.2 0.1 1.8 0.2 0.1 0 0.3 0.1 0.4 0.1 0.5 0.1 0.9 0.2 1.3 0.4 0.1 0 0.3 0.1 0.4 0.1 0.5 0.2 1.1 0.5 1.6 0.7l-10.8-6.3s-0.1 0-0.1-0.1l-1.2-0.6c-0.1 0-0.2-0.1-0.2-0.1-0.1-0.1-0.3-0.1-0.4-0.1-0.2-0.1-0.4-0.2-0.6-0.2-0.2-0.1-0.5-0.1-0.7-0.2-0.1 0-0.3-0.1-0.4-0.1h-0.2c-0.5-0.1-1-0.1-1.4-0.2h-2c-0.2 0-0.5 0-0.7 0.1-0.2 0-0.4 0-0.6 0.1-0.2 0-0.4 0.1-0.6 0.1-0.3 0.1-0.7 0.1-1 0.2-0.2 0-0.3 0.1-0.5 0.1-0.4 0.1-0.8 0.2-1.3 0.4h-0.1c-0.5 0.2-1 0.3-1.5 0.6l-0.6 0.3-0.6 0.3c-0.7 0.3-1.5 0.7-2.2 1.1-0.8 0.4-1.5 0.9-2.3 1.4-0.2 0.2-0.5 0.4-0.7 0.5-0.5 0.4-1 0.7-1.5 1.1-0.3 0.2-0.6 0.5-0.8 0.7-0.4 0.4-0.9 0.8-1.3 1.2-0.3 0.3-0.6 0.5-0.8 0.8-0.2 0.2-0.4 0.3-0.6 0.5l-0.5 0.5c-0.6 0.6-1.1 1.2-1.6 1.8-0.2 0.2-0.4 0.4-0.5 0.6-0.1 0.1-0.2 0.3-0.3 0.4-0.3 0.4-0.6 0.7-0.9 1.1-0.2 0.3-0.5 0.5-0.7 0.8-0.1 0.2-0.2 0.3-0.4 0.5-0.2 0.3-0.4 0.6-0.7 0.9-0.2 0.3-0.4 0.5-0.6 0.7l-0.6 0.9c-0.2 0.3-0.3 0.5-0.5 0.8-0.1 0.1-0.2 0.3-0.3 0.4-0.4 0.6-0.8 1.3-1.2 2-0.4 0.7-0.7 1.3-1.1 2-0.1 0.2-0.2 0.3-0.3 0.5-0.1 0.2-0.2 0.5-0.3 0.7-0.1 0.3-0.3 0.5-0.4 0.8-0.2 0.4-0.4 0.9-0.6 1.3-0.1 0.2-0.2 0.4-0.2 0.5 0 0.1-0.1 0.1-0.1 0.2l-0.9 2.1c0 0.1-0.1 0.2-0.1 0.3-0.1 0.2-0.2 0.4-0.2 0.7-0.2 0.4-0.3 0.8-0.5 1.3-0.1 0.2-0.1 0.5-0.2 0.7-0.1 0.3-0.2 0.6-0.3 1-0.1 0.2-0.2 0.5-0.2 0.7-0.1 0.3-0.2 0.7-0.2 1l-0.3 1.2c0 0.2-0.1 0.3-0.1 0.5-0.1 0.3-0.1 0.6-0.1 0.9l-0.3 1.8c0 0.2-0.1 0.4-0.1 0.6 0 0.4-0.1 0.7-0.1 1.1 0 0.3-0.1 0.5-0.1 0.8-0.1 0.9-0.1 1.7-0.1 2.6 0 7.3 2.6 12.4 6.8 14.9l10.8 6.3c-4.2-2.4-6.8-7.6-6.8-14.9 0-0.8 0-1.7 0.1-2.6 0-0.3 0.1-0.5 0.1-0.8 0.1-0.6 0.1-1.1 0.2-1.7l0.3-1.8c0.1-0.4 0.2-0.9 0.3-1.3l0.3-1.2c0.1-0.6 0.3-1.1 0.5-1.7 0.1-0.3 0.2-0.6 0.3-1 0.2-0.7 0.4-1.3 0.7-2 0.1-0.2 0.2-0.4 0.2-0.7 0.3-0.9 0.7-1.7 1-2.6 0.1-0.2 0.2-0.4 0.2-0.5 0.3-0.7 0.6-1.4 1-2.1 0.1-0.2 0.2-0.5 0.3-0.7 0.4-0.8 0.9-1.7 1.4-2.5l1.5-2.4c0.2-0.3 0.3-0.5 0.5-0.8 0.4-0.5 0.7-1.1 1.1-1.6 0.2-0.3 0.4-0.6 0.7-0.9 0.3-0.5 0.7-0.9 1.1-1.3 0.3-0.4 0.6-0.8 0.9-1.1 0.3-0.3 0.6-0.6 0.8-0.9 0.5-0.6 1.1-1.2 1.6-1.8l1-1 0.8-0.8c0.4-0.4 0.9-0.8 1.3-1.2 0.3-0.2 0.6-0.5 0.8-0.7 0.5-0.4 1-0.8 1.5-1.1 0.2-0.2 0.5-0.4 0.7-0.5 0.8-0.5 1.5-1 2.3-1.4 0.7-0.4 1.5-0.8 2.2-1.1l0.6-0.3c0.5-0.4 1.2-0.7 1.9-1z" fill="#ACC5EA"/>
-                    <path d="M374.8 410.5c13.1-7.6 23.8-1.7 23.9 13.2 0 14.9-10.6 33-23.7 40.6-13.1 7.6-23.8 1.7-23.9-13.2s10.6-33 23.7-40.6z" fill="#FFFFFF"/>
-                    <path d="M582.7 264.8c4.7-2.7 8.6-0.5 8.6 4.9s-3.8 12.1-8.5 14.8L447 362.9c-4.7 2.7-8.6 0.5-8.6-4.9s3.8-12.1 8.5-14.8l135.8-78.4zM580.8 327.8c4.7-2.7 8.6-0.5 8.6 4.9s-3.8 12.1-8.5 14.8L445 425.9c-4.7 2.7-8.6 0.5-8.6-4.9s3.8-12.1 8.5-14.8l135.9-78.4z" fill="#2828CE"/>
-                    <path d="M591.4 271.3c-0.1 0-0.1 0 0 0-0.2-0.1-0.3-0.2-0.5-0.2h-0.1s-0.1 0-0.1-0.1c-0.1 0-0.1-0.1-0.2-0.1s-0.2 0-0.2-0.1h-0.2-0.1c-0.2 0-0.3 0-0.5-0.1h-0.5-0.8c-0.1 0-0.2 0-0.3 0.1h-0.2c-0.1 0-0.1 0-0.2 0.1-0.2 0.1-0.4 0.1-0.6 0.2-0.1 0-0.1 0-0.2 0.1 0 0-0.1 0-0.1 0.1-0.4 0.2-0.7 0.3-1.1 0.5l-135.8 78.4c-0.5 0.3-1.1 0.7-1.6 1.1-0.2 0.1-0.3 0.3-0.5 0.4-0.2 0.2-0.5 0.4-0.7 0.7-0.1 0.1-0.2 0.2-0.3 0.4l-0.3 0.3-0.3 0.3c-0.2 0.3-0.5 0.6-0.7 0.9-0.1 0.1-0.2 0.2-0.2 0.3 0 0.1-0.1 0.1-0.1 0.2-0.1 0.1-0.1 0.2-0.2 0.3-0.2 0.2-0.3 0.5-0.5 0.7-0.2 0.2-0.3 0.5-0.4 0.7v0.2l-0.3 0.6c-0.1 0.2-0.3 0.5-0.4 0.7-0.1 0.2-0.2 0.4-0.3 0.7-0.1 0.3-0.2 0.5-0.3 0.8-0.1 0.3-0.2 0.5-0.3 0.8 0 0.1-0.1 0.3-0.1 0.4 0 0.1 0 0.1-0.1 0.2 0 0.1-0.1 0.2-0.1 0.3-0.1 0.3-0.2 0.7-0.2 1 0 0.2-0.1 0.4-0.1 0.6 0 0.1 0 0.2-0.1 0.3 0 0.1 0 0.2-0.1 0.3-0.1 0.6-0.1 1.1-0.1 1.7 0 1.3 0.2 2.5 0.7 3.4 0.4 0.9 1.1 1.6 1.8 2.1l10.8 6.3c-1.5-0.9-2.5-2.8-2.5-5.5 0-0.6 0.1-1.3 0.2-2 0-0.1 0-0.2 0.1-0.3 0.1-0.6 0.2-1.2 0.4-1.9 0-0.1 0-0.1 0.1-0.2 0.2-0.7 0.5-1.4 0.7-2 0.3-0.7 0.6-1.4 1-2v-0.1l1.2-1.8c0-0.1 0.1-0.1 0.1-0.2 0.4-0.5 0.8-1 1.3-1.5l0.3-0.3c0.3-0.4 0.7-0.7 1.1-1 0.2-0.1 0.3-0.3 0.5-0.4 0.5-0.4 1.1-0.8 1.6-1.1L596 278.2c0.4-0.2 0.7-0.4 1.1-0.5 0.1 0 0.2-0.1 0.3-0.1 0.2-0.1 0.4-0.1 0.6-0.2 0.1 0 0.3-0.1 0.4-0.1 0.1 0 0.2-0.1 0.3-0.1 0.2 0 0.3-0.1 0.5-0.1H600.2c0.2 0 0.4 0 0.6 0.1h0.2c0.2 0 0.3 0.1 0.5 0.1 0 0 0.1 0 0.1 0.1l0.6 0.3-10.8-6.4z" fill="#ACC5EA"/>
-                    <path d="M596 278.2c4.7-2.7 8.6-0.5 8.6 4.9s-3.8 12.1-8.5 14.8l-135.8 78.4c-4.7 2.7-8.6 0.5-8.6-4.9s3.8-12.1 8.5-14.8L596 278.2z" fill="#FFFFFF"/>
-                    <path d="M591.4 332.8c-0.1 0-0.1-0.1 0 0-0.2-0.1-0.3-0.2-0.5-0.2h-0.1s-0.1 0-0.1-0.1c-0.1 0-0.1-0.1-0.2-0.1s-0.2 0-0.2-0.1h-0.2-0.1c-0.2 0-0.3 0-0.5-0.1h-0.5-0.8c-0.1 0-0.2 0-0.3 0.1h-0.2c-0.1 0-0.1 0-0.2 0.1-0.2 0.1-0.4 0.1-0.6 0.2-0.1 0-0.1 0-0.2 0.1 0 0-0.1 0-0.1 0.1-0.4 0.2-0.7 0.3-1.1 0.5l-135.8 78.4c-0.5 0.3-1.1 0.7-1.6 1.1-0.2 0.1-0.3 0.3-0.5 0.4-0.2 0.2-0.5 0.4-0.7 0.7-0.1 0.1-0.2 0.2-0.3 0.4l-0.3 0.3-0.3 0.3c-0.2 0.3-0.5 0.6-0.7 0.9-0.1 0.1-0.2 0.2-0.2 0.3 0 0.1-0.1 0.1-0.1 0.2-0.1 0.1-0.1 0.2-0.2 0.3-0.2 0.2-0.3 0.5-0.5 0.7-0.2 0.2-0.3 0.5-0.4 0.7v0.2l-0.3 0.6c-0.1 0.2-0.3 0.5-0.4 0.7-0.1 0.2-0.2 0.4-0.3 0.7v0.1c-0.1 0.3-0.2 0.5-0.3 0.8-0.1 0.3-0.2 0.5-0.3 0.8 0 0.1-0.1 0.3-0.1 0.4 0 0.1 0 0.1-0.1 0.2 0 0.1-0.1 0.2-0.1 0.3-0.1 0.3-0.2 0.7-0.2 1 0 0.2-0.1 0.4-0.1 0.6 0 0.1 0 0.2-0.1 0.3 0 0.1 0 0.2-0.1 0.3-0.1 0.6-0.1 1.1-0.1 1.7 0 2.7 1 4.6 2.5 5.5l10.8 6.3c-1.5-0.9-2.5-2.8-2.5-5.5 0-0.6 0.1-1.3 0.2-2 0-0.1 0-0.2 0.1-0.3 0.1-0.6 0.2-1.2 0.4-1.9 0-0.1 0-0.1 0.1-0.2 0.2-0.7 0.5-1.4 0.7-2 0.3-0.7 0.6-1.3 1-2v-0.1l1.2-1.8c0-0.1 0.1-0.1 0.1-0.2 0.4-0.5 0.8-1 1.3-1.5l0.3-0.3c0.3-0.4 0.7-0.7 1.1-1 0.2-0.1 0.3-0.3 0.5-0.4 0.5-0.4 1.1-0.8 1.6-1.1L596 339.6c0.4-0.2 0.7-0.4 1.1-0.5 0.1 0 0.2-0.1 0.3-0.1 0.2-0.1 0.4-0.1 0.6-0.2 0.1 0 0.3-0.1 0.4-0.1 0.1 0 0.2-0.1 0.4-0.1s0.3-0.1 0.5-0.1H600.3c0.2 0 0.4 0 0.6 0.1h0.2c0.2 0 0.3 0.1 0.5 0.1 0 0 0.1 0 0.1 0.1l0.6 0.3-10.9-6.3z" fill="#ACC5EA"/>
-                    <path d="M596 339.6c4.7-2.7 8.6-0.5 8.6 4.9s-3.8 12.1-8.5 14.8l-135.8 78.4c-4.7 2.7-8.6 0.5-8.6-4.9s3.8-12.1 8.5-14.8L596 339.6z" fill="#FFFFFF"/>
-                    <path d="M521.1 425.8c4.7-2.7 8.6-0.5 8.6 4.9s-3.8 12.1-8.5 14.8l-76.2 44c-4.7 2.7-8.6 0.5-8.6-4.9s3.8-12.1 8.5-14.8l76.2-44z" fill="#2828CE"/>
-                    <path d="M543 435.8l-10.8-6.3c-0.1-0.1-0.3-0.1-0.4-0.2h-0.1s-0.1 0-0.1-0.1c-0.1 0-0.1-0.1-0.2-0.1s-0.2 0-0.2-0.1h-0.2-0.1c-0.2 0-0.3 0-0.5-0.1h-0.5-0.8c-0.1 0-0.2 0-0.4 0.1h-0.2c-0.1 0-0.1 0-0.2 0.1-0.2 0.1-0.4 0.1-0.6 0.2-0.1 0-0.1 0-0.2 0.1 0 0-0.1 0-0.1 0.1-0.4 0.2-0.7 0.3-1.1 0.5l-76.2 44 10.8 6.3 76.2-44c0.4-0.2 0.7-0.4 1.1-0.5 0.1 0 0.2-0.1 0.3-0.1 0.2-0.1 0.4-0.1 0.6-0.2 0.1 0 0.3-0.1 0.4-0.1 0.1 0 0.2-0.1 0.4-0.1s0.3-0.1 0.5-0.1H541.4c0.2 0 0.4 0 0.6 0.1h0.2c0.2 0 0.3 0.1 0.5 0.1 0 0 0.1 0 0.1 0.1-0.1 0.1 0.1 0.2 0.2 0.3zM448.4 475.3c-0.2 0.1-0.3 0.3-0.5 0.4-0.3 0.2-0.5 0.4-0.7 0.7-0.1 0.1-0.2 0.2-0.3 0.4l-0.3 0.3-0.3 0.3c-0.2 0.3-0.5 0.6-0.7 0.8-0.1 0.1-0.2 0.2-0.2 0.3 0 0.1-0.1 0.1-0.1 0.2-0.1 0.1-0.1 0.2-0.2 0.3-0.2 0.2-0.3 0.5-0.5 0.7-0.2 0.2-0.3 0.5-0.4 0.7v0.2l-0.3 0.6c-0.1 0.2-0.3 0.5-0.4 0.7-0.1 0.2-0.2 0.4-0.3 0.7-0.1 0.3-0.2 0.5-0.3 0.8-0.1 0.3-0.2 0.5-0.3 0.8 0 0.1-0.1 0.3-0.1 0.4 0 0.1 0 0.1-0.1 0.2 0 0.1-0.1 0.2-0.1 0.3-0.1 0.3-0.2 0.7-0.2 1 0 0.2-0.1 0.4-0.1 0.6 0 0.1 0 0.2-0.1 0.3v0.3c-0.1 0.6-0.1 1.1-0.1 1.7 0 2.7 1 4.6 2.5 5.5l10.8 6.3c-1.5-0.9-2.5-2.8-2.5-5.5 0-0.6 0.1-1.3 0.2-2 0-0.1 0-0.2 0.1-0.3 0.1-0.6 0.2-1.2 0.4-1.9 0-0.1 0-0.1 0.1-0.2 0.2-0.7 0.5-1.4 0.7-2 0.3-0.7 0.6-1.4 1-2v-0.1l1.2-1.8c0-0.1 0.1-0.1 0.1-0.2 0.4-0.5 0.8-1 1.3-1.5l0.3-0.3c0.3-0.4 0.7-0.7 1.1-1 0.2-0.1 0.3-0.3 0.5-0.4 0.5-0.4 1.1-0.8 1.6-1.1l-10.8-6.3c-1 0.3-1.5 0.6-2 1.1z" fill="#ACC5EA"/>
-                    <path d="M536.9 436.4c4.7-2.7 8.6-0.5 8.6 4.9s-3.8 12.1-8.5 14.8l-76.2 44c-4.7 2.7-8.6 0.5-8.6-4.9s3.8-12.1 8.5-14.8l76.2-44z" fill="#FFFFFF"/>
-                    <path d="M750.9 454.4l-14.8-8.6c0.1 0 0.2 0.1 0.4 0.1l14.8 8.6c-0.2 0-0.3-0.1-0.4-0.1" fill="#A8871E"/>
-                    <path d="M751.2 454.5l-14.8-8.6 0.6 0.3 14.8 8.6-0.6-0.3" fill="#A3831D"/>
-                    <path d="M751.8 454.8l-14.8-8.6h0.1l14.7 8.6" fill="#9E7F1D"/>
-                    <path d="M639.4 613.4l-14.8-8.6c-0.4-0.5-0.8-0.8-1.3-1.1l14.8 8.6c0.5 0.3 0.9 0.7 1.3 1.1" fill="#856B18"/>
-                    <path d="M732 443.6l-14.8-8.6 18.9 10.8 14.8 8.6z" fill="#9E7F1D"/>
-                    <path d="M713.1 395.9c-0.2-0.1-0.4-0.2-0.5-0.2-0.1-0.1-0.2-0.1-0.4-0.2-0.1 0-0.1-0.1-0.2-0.1s-0.1 0-0.2-0.1c-0.2-0.1-0.4-0.1-0.7-0.2h-0.1c-0.3 0-0.5-0.1-0.8-0.1H708.2c-0.2 0-0.4 0.1-0.5 0.1-0.2 0-0.4 0.1-0.6 0.1h-0.1c-0.1 0-0.3 0.1-0.4 0.1-0.4 0.1-0.7 0.2-1.1 0.4-0.1 0-0.2 0.1-0.3 0.1-0.2 0.1-0.4 0.1-0.5 0.2-0.1 0.1-0.3 0.1-0.4 0.2-0.5 0.2-0.9 0.5-1.4 0.7l-20 11.5c-0.6 0.4-1.3 0.7-1.9 1-0.1 0-0.1 0.1-0.2 0.1-0.4 0.2-0.9 0.3-1.3 0.4-0.2 0.1-0.4 0.1-0.6 0.1-0.1 0-0.3 0.1-0.4 0.1-0.3 0.1-0.6 0.1-0.9 0.1h-1.1c-0.3 0-0.5-0.1-0.8-0.2h-0.1c-0.3-0.1-0.5-0.2-0.8-0.4l14.8 8.6h0.1c0.2 0.1 0.3 0.2 0.5 0.2 0.1 0 0.2 0.1 0.2 0.1h0.2c0.2 0.1 0.4 0.1 0.5 0.1H692.4c0.3 0 0.5 0 0.8-0.1h0.1c0.1 0 0.3-0.1 0.4-0.1 0.2 0 0.3-0.1 0.5-0.1h0.1c0.4-0.1 0.8-0.3 1.3-0.4h0.1s0.1 0 0.1-0.1c0.6-0.3 1.3-0.6 1.9-1l20-11.5c0.5-0.3 0.9-0.5 1.4-0.7 0.1-0.1 0.3-0.1 0.4-0.2 0.3-0.1 0.5-0.2 0.8-0.3 0.4-0.1 0.8-0.3 1.1-0.4 0.2-0.1 0.4-0.1 0.5-0.2 0.2-0.1 0.4-0.1 0.6-0.1 0.2-0.1 0.5-0.1 0.7-0.1H724.7c0.4 0 0.7 0 1 0.1h0.1c0.3 0.1 0.6 0.1 0.9 0.2 0.1 0 0.1 0 0.2 0.1 0.3 0.1 0.6 0.3 0.9 0.4l-14.7-8.2zM595.9 616.9l-0.1-23c0-4-2.3-6.7-4.6-8l-14.8-8.6c2.3 1.4 4.6 4 4.6 8l9.9 5.7-9.9-5.7 0.1 23c0 2.9 0.6 5.3 1.6 7 0.6 1 1.4 1.8 2.3 2.3l14.8 8.6c-2.5-1.4-3.9-4.6-3.9-9.3z" fill="#C68620"/>
-                    <path d="M664.2 410c3.5-2 7.1-2.4 10-0.7l14.2 8.1c2.4 2.7 5.9 2 9.4 0l20-11.5c8.2-4.8 14.1-1.4 14.2 8.1l0.1 29.7 18.9 10.8c5.9 2 5.9 12.8-1.1 23.6l-14.1 24.4c-3.5 4.7-4.7 9.5-4.7 13.5l0.1 23c0 9.5-5.8 19.6-14.1 24.4l-20 11.5c-3.5 2-7.1 6.8-9.4 10.8L673.6 610c-2.9 5.1-6.4 8.8-10 10.8-3.5 2-7.1 2.4-10 0.7l-14.1-8.1c-2.4-2.7-5.9-2-9.4 0L610 625c-8.2 4.8-14.1 1.4-14.2-8.1l-0.1-23c0-4.1-2.4-6.8-4.7-8.1l-14.2-8.1c-5.9-3.4-5.9-12.8-0.1-23l14.1-25.7c3.5-4.7 4.7-9.5 4.7-13.5l-0.1-23c0-9.5 5.8-19.6 14.1-24.4l20-11.5c3.5-2 7.1-6.8 10.6-11.5l14.1-24.4c2.9-4.9 6.5-8.6 10-10.7z" fill="#FFCD2E"/>
-                    <path d="M691.9 456.3l1.9 4c-20.1 33.6-36.6 74.1-41.7 92.9l-30.4-19 7.7-11.8 17.6 6.1c7.1-14.3 23-43.6 44.9-72.2zM673.5 408.8l-14.2-8.1c-0.3-0.2-0.6-0.3-0.9-0.4 0 0-0.1 0-0.1-0.1-0.1 0-0.2-0.1-0.3-0.1-0.1-0.1-0.3-0.1-0.4-0.2-0.1 0-0.3-0.1-0.4-0.1-0.1 0-0.2 0-0.3-0.1h-0.2c-0.3-0.1-0.6-0.1-0.9-0.1h-2c-0.1 0-0.2 0-0.3 0.1-0.2 0-0.4 0.1-0.5 0.1-0.1 0-0.2 0-0.3 0.1-0.1 0-0.2 0.1-0.3 0.1l-0.9 0.3c-0.1 0-0.2 0.1-0.3 0.1-0.1 0-0.1 0.1-0.2 0.1-0.5 0.2-1.1 0.5-1.6 0.8-0.4 0.2-0.8 0.5-1.2 0.8-0.1 0.1-0.3 0.2-0.4 0.3-0.3 0.2-0.6 0.4-0.8 0.6-0.1 0.1-0.3 0.2-0.4 0.4-0.3 0.2-0.5 0.5-0.8 0.7l-0.4 0.4c-0.1 0.1-0.2 0.1-0.2 0.2-0.1 0.1-0.2 0.2-0.3 0.4-0.3 0.3-0.6 0.6-0.9 1l-0.3 0.3c-0.1 0.1-0.2 0.3-0.3 0.4-0.2 0.2-0.4 0.4-0.6 0.7-0.1 0.1-0.2 0.2-0.3 0.4-0.1 0.2-0.3 0.3-0.4 0.5-0.1 0.2-0.3 0.4-0.4 0.6-0.1 0.1-0.1 0.2-0.2 0.3-0.2 0.3-0.4 0.6-0.6 0.8-0.1 0.1-0.2 0.3-0.3 0.4l-0.1 0.1c-0.3 0.5-0.6 1-0.9 1.4 0 0.1-0.1 0.1-0.1 0.2l-14.1 24.4-2.7 3.6c-0.3 0.3-0.5 0.6-0.8 1-0.2 0.2-0.3 0.4-0.5 0.6-0.3 0.4-0.7 0.8-1 1.2l-0.3 0.3-0.1 0.1c-0.5 0.6-1.1 1.2-1.6 1.7l-0.5 0.5c-0.4 0.3-0.7 0.7-1.1 1-0.2 0.1-0.3 0.3-0.5 0.4-0.5 0.4-1 0.8-1.5 1.1l-20 11.5c-0.9 0.5-1.7 1.1-2.5 1.7-0.1 0.1-0.2 0.1-0.3 0.2-0.8 0.6-1.5 1.2-2.2 1.9l-0.2 0.2c-0.1 0.1-0.1 0.2-0.2 0.2-0.3 0.3-0.7 0.7-1 1.1l-0.3 0.3-0.1 0.1c-0.1 0.2-0.3 0.4-0.4 0.5-0.2 0.2-0.4 0.4-0.5 0.6-0.1 0.1-0.1 0.2-0.2 0.2-0.1 0.1-0.2 0.3-0.3 0.4-0.1 0.2-0.2 0.3-0.4 0.5-0.1 0.2-0.2 0.3-0.3 0.5-0.1 0.1-0.2 0.3-0.3 0.4-0.1 0.1-0.1 0.2-0.2 0.2-0.2 0.4-0.4 0.7-0.7 1.1v0.1c0 0.1-0.1 0.1-0.1 0.2-0.2 0.3-0.3 0.5-0.4 0.8-0.1 0.2-0.2 0.3-0.2 0.5-0.1 0.1-0.1 0.2-0.2 0.4 0 0.1-0.1 0.2-0.1 0.3-0.2 0.4-0.4 0.7-0.5 1.1v0.1c0 0.1-0.1 0.2-0.1 0.3-0.1 0.3-0.2 0.6-0.3 0.8-0.1 0.1-0.1 0.3-0.2 0.5s-0.1 0.3-0.2 0.5c0 0.1-0.1 0.2-0.1 0.4l-0.3 0.9c0 0.1-0.1 0.3-0.1 0.4v0.1c-0.1 0.4-0.2 0.7-0.3 1.1 0 0.2-0.1 0.3-0.1 0.5v0.1c0 0.1 0 0.2-0.1 0.3-0.1 0.5-0.2 1.1-0.3 1.6v0.5c-0.1 1-0.2 1.9-0.2 2.9l0.1 23c0 0.8-0.1 1.6-0.2 2.5v0.4c0 0.3-0.1 0.6-0.2 0.9 0 0.3-0.1 0.5-0.2 0.8 0 0.1-0.1 0.3-0.1 0.4l-0.3 1.2c0 0.1-0.1 0.2-0.1 0.3-0.2 0.5-0.3 1-0.6 1.5 0 0.1-0.1 0.1-0.1 0.2-0.2 0.5-0.5 1-0.7 1.5 0 0.1-0.1 0.1-0.1 0.2-0.3 0.5-0.6 1.1-0.9 1.6 0 0.1-0.1 0.1-0.1 0.2-0.4 0.6-0.7 1.1-1.2 1.7L562 546.2c-0.2 0.4-0.5 0.9-0.7 1.3-0.1 0.1-0.1 0.3-0.2 0.4-0.1 0.2-0.2 0.3-0.3 0.5-0.1 0.2-0.2 0.3-0.3 0.5-0.1 0.3-0.2 0.5-0.4 0.8-0.1 0.1-0.1 0.3-0.2 0.4 0 0.1-0.1 0.1-0.1 0.2-0.2 0.5-0.4 0.9-0.6 1.3v0.1c0 0.1-0.1 0.3-0.1 0.4l-0.3 0.9c0 0.1-0.1 0.3-0.1 0.4-0.1 0.2-0.1 0.4-0.2 0.6 0 0.2-0.1 0.3-0.1 0.5-0.1 0.2-0.1 0.4-0.1 0.5-0.1 0.2-0.1 0.5-0.2 0.7 0 0.1-0.1 0.2-0.1 0.3 0 0.2-0.1 0.3-0.1 0.5-0.1 0.3-0.1 0.7-0.2 1 0 0.1 0 0.2-0.1 0.3v0.4c0 0.4-0.1 0.8-0.1 1.1v2.3c0 0.5 0.1 1.1 0.2 1.5v0.1c0.1 0.5 0.2 0.9 0.4 1.3 0.1 0.1 0.1 0.3 0.2 0.4 0.1 0.3 0.3 0.6 0.4 0.9 0.1 0.2 0.2 0.3 0.3 0.4 0.2 0.3 0.3 0.5 0.5 0.7 0.1 0.1 0.2 0.3 0.3 0.4 0.2 0.2 0.4 0.5 0.7 0.7l0.3 0.3c0.4 0.3 0.7 0.6 1.1 0.8l14.8 8.6c-0.4-0.2-0.8-0.5-1.1-0.8l-0.3-0.3-0.7-0.7c-0.1-0.1-0.2-0.3-0.3-0.4-0.2-0.2-0.3-0.5-0.5-0.7-0.1-0.1-0.2-0.3-0.3-0.4-0.1-0.3-0.3-0.6-0.4-0.9-0.1-0.1-0.1-0.3-0.2-0.4-0.1-0.4-0.3-0.8-0.4-1.3v-0.1c-0.1-0.5-0.2-1-0.2-1.5v-0.5-1.2-0.6c0-0.4 0-0.8 0.1-1.1 0-0.2 0.1-0.5 0.1-0.7 0-0.3 0.1-0.7 0.2-1 0.1-0.3 0.1-0.5 0.2-0.8 0.1-0.2 0.1-0.5 0.2-0.7 0.1-0.3 0.2-0.7 0.3-1 0.1-0.2 0.1-0.4 0.2-0.6 0.1-0.4 0.3-0.8 0.4-1.2 0-0.1 0.1-0.2 0.1-0.4 0.2-0.5 0.4-1.1 0.7-1.6 0.1-0.1 0.1-0.3 0.2-0.4 0.2-0.4 0.4-0.9 0.6-1.3 0.1-0.2 0.2-0.3 0.3-0.5 0.3-0.6 0.6-1.1 0.9-1.7l-9.9-5.7 9.9 5.7 14.1-25.7c0.2-0.2 0.3-0.4 0.4-0.6l0.6-0.9c0-0.1 0.1-0.1 0.1-0.2s0.1-0.1 0.1-0.2c0.1-0.2 0.2-0.4 0.3-0.5 0.2-0.3 0.3-0.6 0.5-0.8 0-0.1 0.1-0.1 0.1-0.2s0.1-0.1 0.1-0.2c0.1-0.1 0.2-0.3 0.2-0.4 0.1-0.3 0.3-0.6 0.4-0.8 0-0.1 0.1-0.2 0.1-0.3 0-0.1 0.1-0.1 0.1-0.2 0.1-0.1 0.1-0.3 0.2-0.4l0.3-0.9c0-0.1 0-0.1 0.1-0.2 0-0.1 0.1-0.2 0.1-0.3 0.1-0.2 0.1-0.4 0.2-0.6 0.1-0.2 0.1-0.4 0.2-0.6 0-0.1 0.1-0.3 0.1-0.4v-0.2c0-0.2 0.1-0.4 0.1-0.6 0.1-0.3 0.1-0.6 0.2-0.9v-0.2-0.3c0.1-0.9 0.2-1.7 0.2-2.5l-0.1-23c0-1 0.1-1.9 0.2-2.9v-0.5c0.1-0.5 0.2-1.1 0.3-1.6 0-0.1 0-0.3 0.1-0.4 0-0.2 0.1-0.3 0.1-0.5l0.3-1.2c0-0.1 0.1-0.3 0.1-0.4 0.1-0.4 0.2-0.8 0.4-1.2 0.1-0.2 0.1-0.3 0.2-0.5 0.2-0.4 0.3-0.9 0.5-1.3 0-0.1 0.1-0.2 0.1-0.2 0.2-0.5 0.4-1 0.7-1.5 0.1-0.1 0.1-0.2 0.2-0.3 0.2-0.4 0.5-0.9 0.7-1.3 0-0.1 0.1-0.1 0.1-0.2 0.3-0.5 0.6-0.9 0.9-1.4 0.1-0.1 0.2-0.3 0.3-0.4 0.2-0.3 0.5-0.7 0.7-1 0.1-0.1 0.2-0.3 0.3-0.4 0.2-0.3 0.5-0.6 0.7-0.9 0.1-0.2 0.3-0.4 0.4-0.5 0.1-0.2 0.3-0.3 0.4-0.5 0.3-0.4 0.7-0.7 1-1.1l0.4-0.4c0.7-0.7 1.4-1.3 2.2-1.9 0.1-0.1 0.2-0.1 0.3-0.2 0.8-0.6 1.6-1.2 2.5-1.7l20-11.5c0.5-0.3 1-0.7 1.5-1.1 0.2-0.1 0.3-0.3 0.5-0.4 0.4-0.3 0.7-0.6 1.1-1 0.1-0.1 0.2-0.1 0.3-0.2l0.2-0.2c0.5-0.5 1.1-1.1 1.6-1.7l0.1-0.1c0.1-0.1 0.2-0.3 0.3-0.4 0.3-0.4 0.6-0.7 1-1.1 0.2-0.2 0.3-0.4 0.5-0.6 0.2-0.3 0.5-0.6 0.7-0.9 0 0 0-0.1 0.1-0.1l2.7-3.6 14.1-24.4c0.3-0.6 0.7-1.2 1.1-1.7 0.1-0.1 0.2-0.3 0.3-0.4 0.3-0.4 0.5-0.8 0.8-1.1 0.1-0.2 0.3-0.4 0.4-0.6 0.2-0.3 0.5-0.6 0.7-0.9 0.2-0.2 0.4-0.5 0.6-0.7 0.2-0.2 0.4-0.5 0.6-0.7 0.3-0.3 0.6-0.7 0.9-1l0.6-0.6 0.4-0.4c0.3-0.2 0.5-0.5 0.8-0.7l0.4-0.4c0.3-0.2 0.6-0.4 0.8-0.6 0.1-0.1 0.3-0.2 0.4-0.3 0.4-0.3 0.8-0.5 1.2-0.8 0.5-0.3 1.1-0.6 1.6-0.8 0.2-0.1 0.4-0.1 0.5-0.2l0.9-0.3c0.2-0.1 0.4-0.1 0.6-0.2 0.2 0 0.4-0.1 0.5-0.1 0.3 0 0.5-0.1 0.8-0.1h1.5c0.4 0 0.7 0.1 1.1 0.1 0.1 0 0.2 0 0.3 0.1 0.3 0.1 0.5 0.1 0.8 0.2 0.1 0 0.2 0.1 0.3 0.1 0.4 0.1 0.7 0.3 1 0.5l14.2 8.1-14.9-8.8z" fill="#C68620"/>
-                    <path d="M661.3 534.3c0.1-0.2 0.2-0.3 0.3-0.5 0.5-1 1-1.9 1.6-3 0.3-0.6 0.7-1.3 1-1.9 0.3-0.6 0.7-1.2 1-1.9 0.4-0.7 0.8-1.4 1.1-2.1 0.4-0.7 0.7-1.3 1.1-2 0.4-0.7 0.8-1.4 1.2-2.2l1.2-2.1c0.4-0.7 0.9-1.5 1.3-2.3 0.4-0.7 0.8-1.5 1.3-2.2 0.3-0.5 0.5-0.9 0.8-1.4l1.8-3c0.3-0.6 0.7-1.1 1-1.7 0.6-0.9 1.1-1.9 1.7-2.8 0.4-0.6 0.8-1.2 1.2-1.9 0.6-0.9 1.2-1.9 1.8-2.8 0.4-0.6 0.8-1.3 1.2-1.9 0.4-0.7 0.8-1.3 1.3-2 1.4-2.2 2.8-4.4 4.3-6.6 0.2-0.2 0.3-0.4 0.4-0.7 1.6-2.4 3.2-4.8 4.9-7.2 0.5-0.6 0.9-1.3 1.4-1.9 1-1.4 2-2.9 3.1-4.3 0.5-0.7 0.9-1.3 1.4-2 1.5-2.1 3-4.1 4.6-6.2l-10.8-6.3c-1.6 2.1-3.1 4.1-4.6 6.2-0.5 0.7-0.9 1.3-1.4 1.9-1.1 1.4-2.1 2.9-3.1 4.3-0.3 0.4-0.5 0.7-0.8 1.1l-0.6 0.9c-1.7 2.4-3.3 4.8-4.9 7.2-0.2 0.2-0.3 0.4-0.4 0.7-1.5 2.2-2.9 4.4-4.3 6.6l-0.6 0.9c-0.2 0.4-0.5 0.7-0.7 1.1-0.4 0.7-0.8 1.3-1.2 1.9-0.6 1-1.2 1.9-1.8 2.8-0.4 0.6-0.8 1.3-1.2 1.9-0.6 1-1.2 1.9-1.7 2.8-0.3 0.6-0.7 1.1-1 1.7l-1.8 3c-0.3 0.5-0.6 0.9-0.8 1.4-0.1 0.1-0.1 0.2-0.2 0.3-0.4 0.6-0.7 1.3-1.1 1.9-0.5 0.8-0.9 1.6-1.3 2.3l-1.2 2.1c-0.4 0.7-0.8 1.5-1.2 2.2-0.4 0.7-0.7 1.3-1.1 2-0.4 0.7-0.8 1.4-1.1 2.1-0.3 0.6-0.7 1.2-1 1.8-0.4 0.7-0.7 1.3-1 1.9-0.1 0.1-0.1 0.2-0.2 0.3-0.5 0.9-0.9 1.8-1.4 2.6-0.1 0.2-0.2 0.4-0.3 0.5l-1.2 2.4c-0.1 0.2-0.2 0.5-0.4 0.7-0.4 0.9-0.9 1.7-1.3 2.5l-17.6-6.1-7.7 11.8 10.8 6.3 7.7-11.8 17.6 6.1c0.4-0.8 0.8-1.6 1.3-2.5 0.1-0.2 0.2-0.5 0.4-0.7 0.4-0.6 0.8-1.4 1.2-2.2z" fill="#E8CFAC"/>
-                    <path d="M663.5 564.7l-10.7-6.3-30.4-19 10.7 6.2z" fill="#808080"/>
-                    <path d="M703.4 467.8l1.9 4c-20.1 33.6-36.6 74.1-41.7 92.9l-30.4-19 7.7-11.8 17.6 6.1c7.1-14.3 23-43.6 44.9-72.2z" fill="#FFFFFF"/>
-                </svg>
+    <header class="header" id="header">
+        <nav class="nav">
+            <!-- LOGO - غیرفعال شده -->
+            <div class="logo" id="logoLink">
+                <span class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 15C9.85038 15.6303 10.8846 16 12 16C13.1154 16 14.1496 15.6303 15 15" />
+                        <ellipse cx="15" cy="9.5" rx="1" ry="1.5" fill="currentColor" stroke="none"/>
+                        <ellipse cx="9" cy="9.5" rx="1" ry="1.5" fill="currentColor" stroke="none"/>
+                        <path d="M22 12.3006C22 6.61173 17.5228 2 12 2C6.47715 2 2 6.61173 2 12.3006V19.723C2 21.0453 3.35098 21.9054 4.4992 21.314C5.42726 20.836 6.5328 20.9069 7.39614 21.4998C8.36736 22.1667 9.63264 22.1667 10.6039 21.4998L10.9565 21.2576C11.5884 20.8237 12.4116 20.8237 13.0435 21.2576L13.3961 21.4998C14.3674 22.1667 15.6326 22.1667 16.6039 21.4998C17.4672 20.9069 18.5727 20.836 19.5008 21.314C20.649 21.9054 22 21.0453 22 19.723V16.0118" />
+                    </svg>
+                </span>
+                <span class="logo-text">سین‌یار</span>
             </div>
+            
+            <ul class="nav-links" id="navLinks">
+                <li>
+                    <a href="#" class="nav-link clickable" data-link="خانه">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274" />
+                            <path d="M15 18H9" />
+                        </svg>
+                        <span>خانه</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link clickable" data-link="سرویس‌ها">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3.17004 7.43994L12 12.5499L20.77 7.46991" />
+                            <path d="M12 21.6099V12.5399" />
+                            <path d="M9.92999 2.48L4.59 5.45003C3.38 6.12003 2.39001 7.80001 2.39001 9.18001V14.83C2.39001 16.21 3.38 17.89 4.59 18.56L9.92999 21.53C11.07 22.16 12.94 22.16 14.08 21.53L19.42 18.56C20.63 17.89 21.62 16.21 21.62 14.83V9.18001C21.62 7.80001 20.63 6.12003 19.42 5.45003L14.08 2.48C12.93 1.84 11.07 1.84 9.92999 2.48Z" />
+                            <path d="M17 13.24V9.58002L7.51001 4.09998" />
+                        </svg>
+                        <span>سرویس‌ها</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link clickable" data-link="کیف پول">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 8H10" />
+                            <path d="M22 10.5C22 10.4226 22 9.96726 21.9977 9.9346C21.9623 9.43384 21.5328 9.03496 20.9935 9.00214C20.9583 9 20.9167 9 20.8333 9H18.2308C16.4465 9 15 10.3431 15 12C15 13.6569 16.4465 15 18.2308 15H20.8333C20.9167 15 20.9583 15 20.9935 14.9979C21.5328 14.965 21.9623 14.5662 21.9977 14.0654C22 14.0327 22 13.5774 22 13.5" />
+                            <circle cx="18" cy="12" r="1" fill="currentColor" stroke="none"/>
+                            <path d="M13 4C16.7712 4 18.6569 4 19.8284 5.17157C20.6366 5.97975 20.8873 7.1277 20.965 9M10 20H13C16.7712 20 18.6569 20 19.8284 18.8284C20.6366 18.0203 20.8873 16.8723 20.965 15M9 4.00093C5.8857 4.01004 4.23467 4.10848 3.17157 5.17157C2 6.34315 2 8.22876 2 12C2 15.7712 2 17.6569 3.17157 18.8284C3.82475 19.4816 4.69989 19.7706 6 19.8985" />
+                        </svg>
+                        <span>کیف پول</span>
+                    </a>
+                </li>
+                
+                <li style="display: flex; gap: 6px;" id="authButtons">
+                    <a href="#" class="nav-link auth-btn clickable" id="loginBtn" style="flex: 1; justify-content: center;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" />
+                            <path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" />
+                        </svg>
+                        <span>ورود</span>
+                    </a>
+                    <a href="#" class="nav-link logout-btn clickable" id="logoutBtn" style="flex: 1; justify-content: center; display: none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2V6" />
+                            <path d="M8.5 3.70605C5.26806 5.07157 3 8.27099 3 12.0001C3 14.3052 3.86656 16.4079 5.29169 18.0002M15.5 3.70605C18.7319 5.07157 21 8.27099 21 12.0001C21 16.9707 16.9706 21.0001 12 21.0001C10.9481 21.0001 9.93834 20.8197 9 20.488" />
+                        </svg>
+                        <span>خروج</span>
+                    </a>
+                </li>
+            </ul>
 
-            <div class="title-box">
-                <div class="title">
-                    سین‌یار <span class="sep">|</span> 
-                    خدمات شبکه‌های <span class="bold">اجتماعی</span>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="menu-icons-box" id="menuIconsBox">
+                    <button class="extra-icon clickable" id="extraIcon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 14.3C10.5207 14.7686 10.8126 15.0314 11.3333 15.5L14 12.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 6V5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5V6" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M20.2235 12.5257C19.6382 9.40452 19.3456 7.84393 18.2347 6.92196C17.1238 6 15.5361 6 12.3605 6H11.6393C8.46374 6 6.87596 6 5.76506 6.92196C4.65416 7.84393 4.36155 9.40452 3.77633 12.5257C2.9534 16.9146 2.54194 19.1091 3.74157 20.5545C4.94119 22 7.17389 22 11.6393 22H12.3605C16.8259 22 19.0586 22 20.2582 20.5545C20.9542 19.7159 21.1079 18.6252 20.9536 17" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    
+                    <button class="mobile-menu-btn clickable" id="mobileMenuBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 21H5C4.06812 21 3.60218 21 3.23463 20.8478C2.74458 20.6448 2.35523 20.2554 2.15224 19.7654C2 19.3978 2 18.9319 2 18C2 17.0681 2 16.6022 2.15224 16.2346C2.35523 15.7446 2.74458 15.3552 3.23463 15.1522C3.60218 15 4.06812 15 5 15H19C19.9319 15 20.3978 15 20.7654 15.1522C21.2554 15.3552 21.6448 15.7446 21.8478 16.2346C22 16.6022 22 17.0681 22 18C22 18.9319 22 19.3978 21.8478 19.7654C21.6448 20.2554 21.2554 20.6448 20.7654 20.8478C20.3978 21 19.9319 21 19 21H18" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M2 12C2 11.0681 2 10.6022 2.15224 10.2346C2.35523 9.74458 2.74458 9.35523 3.23463 9.15224C3.60218 9 4.06812 9 5 9H19C19.9319 9 20.3978 9 20.7654 9.15224C21.2554 9.35523 21.6448 9.74458 21.8478 10.2346C22 10.6022 22 11.0681 22 12C22 12.9319 22 13.3978 21.8478 13.7654C21.6448 14.2554 21.2554 14.6448 20.7654 14.8478C20.3978 15 19.9319 15 19 15H5C4.06812 15 3.60218 15 3.23463 14.8478C2.74458 14.6448 2.35523 14.2554 2.15224 13.7654C2 13.3978 2 12.9319 2 12Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M10 3H19C19.9319 3 20.3978 3 20.7654 3.15224C21.2554 3.35523 21.6448 3.74458 21.8478 4.23463C22 4.60218 22 5.06812 22 6C22 6.93188 22 7.39782 21.8478 7.76537C21.6448 8.25542 21.2554 8.64477 20.7654 8.84776C20.3978 9 19.9319 9 19 9H5C4.06812 9 3.60218 9 3.23463 8.84776C2.74458 8.64477 2.35523 8.25542 2.15224 7.76537C2 7.39782 2 6.93188 2 6C2 5.06812 2 4.60218 2.15224 4.23463C2.35523 3.74458 2.74458 3.35523 3.23463 3.15224C3.60218 3 4.06812 3 5 3H6" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="5" cy="12" r="1" fill="currentColor" stroke="none"/>
+                            <circle cx="5" cy="6" r="1" fill="currentColor" stroke="none"/>
+                            <circle cx="5" cy="18" r="1" fill="currentColor" stroke="none"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
-
-            <div class="description">
-                <strong>سین‌یار</strong> | تجربه‌ای تازه از خدمات هوشمند <span class="highlight-text">شبکه‌های اجتماعی</span> است؛ نرم‌افزاری برای گسترش <strong>کانال‌ها</strong> و <strong>پیج‌ها</strong> که به سرعت با کیفیت بالا همیشه اولین همه باشد. <strong>سین‌یار</strong> با مدیریت کانال‌ها و افزایش تعامل، از هدر رفتن فرصت‌های فروش جلوگیری می‌کند.
-            </div>
-
-        </div>
-
-        <div class="buttons">
-
-            <button class="btn btn-primary btn-first" onclick="showToast('🚀 شروع شد!')">
-                <i class="fas fa-rocket"></i> شروع کنید
-            </button>
-
-            <button class="btn btn-second" onclick="showToast('📦 سفارش ثبت شد')">
-                <i class="fas fa-shopping-bag"></i> سفارش
-            </button>
-
-            <button class="btn btn-second" onclick="showToast('🎧 مشاوره رایگان')">
-                <i class="fas fa-headset"></i> مشاوره
-            </button>
-
-            <button class="btn btn-third" onclick="showToast('📸 نمونه‌کارها')">
-                <i class="fas fa-images"></i> نمونه‌کارها
-            </button>
-
-            <button class="btn btn-third" onclick="showToast('🎬 ویدیو معرفی')">
-                <i class="fas fa-play-circle"></i> ویدیو
-            </button>
-
-        </div>
-
-    </div>
-
-    <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <div class="toast" id="toast">
-        <span id="toastMsg"></span>
-    </div>
+        </nav>
+    </header>
 
     <script>
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            document.getElementById('toastMsg').textContent = msg;
-            t.classList.add('show');
-            clearTimeout(t._t);
-            t._t = setTimeout(() => t.classList.remove('show'), 2600);
+        function animateElement(el, animationClass) {
+            el.classList.remove(animationClass);
+            void el.offsetWidth;
+            el.classList.add(animationClass);
+            setTimeout(() => {
+                el.classList.remove(animationClass);
+            }, 800);
         }
 
-        window.addEventListener('scroll', function() {
-            const btn = document.getElementById('scrollTop');
-            if (window.scrollY > 300) {
-                btn.classList.add('visible');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const menuOverlay = document.getElementById('menuOverlay');
+        let isMenuOpen = false;
+
+        function isMobile() {
+            return window.innerWidth <= 992;
+        }
+
+        function openMenu() {
+            if (isMobile()) {
+                navLinks.style.display = 'flex';
+                navLinks.classList.add('active');
+                menuOverlay.classList.add('active');
+                menuOverlay.style.display = 'block';
+            }
+            
+            const svg = mobileMenuBtn.querySelector('svg');
+            svg.innerHTML = `
+                <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            `;
+            isMenuOpen = true;
+        }
+
+        function closeMenu() {
+            if (isMobile()) {
+                navLinks.classList.remove('active');
+                navLinks.classList.add('closing');
+                menuOverlay.classList.remove('active');
+                menuOverlay.classList.add('closing');
+                
+                setTimeout(() => {
+                    navLinks.classList.remove('closing');
+                    navLinks.style.display = 'none';
+                    menuOverlay.classList.remove('closing');
+                    menuOverlay.style.display = 'none';
+                }, 400);
+            }
+            
+            const svg = mobileMenuBtn.querySelector('svg');
+            svg.innerHTML = `
+                <path d="M14 21H5C4.06812 21 3.60218 21 3.23463 20.8478C2.74458 20.6448 2.35523 20.2554 2.15224 19.7654C2 19.3978 2 18.9319 2 18C2 17.0681 2 16.6022 2.15224 16.2346C2.35523 15.7446 2.74458 15.3552 3.23463 15.1522C3.60218 15 4.06812 15 5 15H19C19.9319 15 20.3978 15 20.7654 15.1522C21.2554 15.3552 21.6448 15.7446 21.8478 16.2346C22 16.6022 22 17.0681 22 18C22 18.9319 22 19.3978 21.8478 19.7654C21.6448 20.2554 21.2554 20.6448 20.7654 20.8478C20.3978 21 19.9319 21 19 21H18" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M2 12C2 11.0681 2 10.6022 2.15224 10.2346C2.35523 9.74458 2.74458 9.35523 3.23463 9.15224C3.60218 9 4.06812 9 5 9H19C19.9319 9 20.3978 9 20.7654 9.15224C21.2554 9.35523 21.6448 9.74458 21.8478 10.2346C22 10.6022 22 11.0681 22 12C22 12.9319 22 13.3978 21.8478 13.7654C21.6448 14.2554 21.2554 14.6448 20.7654 14.8478C20.3978 15 19.9319 15 19 15H5C4.06812 15 3.60218 15 3.23463 14.8478C2.74458 14.6448 2.35523 14.2554 2.15224 13.7654C2 13.3978 2 12.9319 2 12Z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M10 3H19C19.9319 3 20.3978 3 20.7654 3.15224C21.2554 3.35523 21.6448 3.74458 21.8478 4.23463C22 4.60218 22 5.06812 22 6C22 6.93188 22 7.39782 21.8478 7.76537C21.6448 8.25542 21.2554 8.64477 20.7654 8.84776C20.3978 9 19.9319 9 19 9H5C4.06812 9 3.60218 9 3.23463 8.84776C2.74458 8.64477 2.35523 8.25542 2.15224 7.76537C2 7.39782 2 6.93188 2 6C2 5.06812 2 4.60218 2.15224 4.23463C2.35523 3.74458 2.74458 3.35523 3.23463 3.15224C3.60218 3 4.06812 3 5 3H6" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="5" cy="12" r="1" fill="currentColor" stroke="none"/>
+                <circle cx="5" cy="6" r="1" fill="currentColor" stroke="none"/>
+                <circle cx="5" cy="18" r="1" fill="currentColor" stroke="none"/>
+            `;
+            isMenuOpen = false;
+        }
+
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            // در دسکتاپ فقط انیمیشن کلیک اجرا شود
+            if (!isMobile()) {
+                animateElement(this, 'clicked');
+                return;
+            }
+            
+            animateElement(this, 'clicked');
+            
+            if (isMenuOpen) {
+                closeMenu();
             } else {
-                btn.classList.remove('visible');
+                openMenu();
             }
         });
+
+        menuOverlay.addEventListener('click', function() {
+            if (isMenuOpen && isMobile()) {
+                closeMenu();
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (isMenuOpen && isMobile() && !navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target) && !document.getElementById('extraIcon').contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        window.addEventListener('resize', function() {
+            if (!isMobile() && isMenuOpen) {
+                closeMenu();
+            }
+            // در دسکتاپ همیشه منو نمایش داده شود
+            if (!isMobile()) {
+                navLinks.style.display = 'flex';
+                navLinks.style.opacity = '1';
+            }
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.id === 'loginBtn' || this.id === 'logoutBtn') {
+                    e.preventDefault();
+                    animateElement(this, 'clicked');
+                    
+                    if (this.id === 'loginBtn') {
+                        this.style.display = 'none';
+                        document.getElementById('logoutBtn').style.display = 'flex';
+                    } else {
+                        this.style.display = 'none';
+                        document.getElementById('loginBtn').style.display = 'flex';
+                    }
+                    return;
+                }
+                
+                e.preventDefault();
+                animateElement(this, 'clicked');
+                
+                if (isMobile() && isMenuOpen) {
+                    setTimeout(() => {
+                        closeMenu();
+                    }, 300);
+                }
+            });
+        });
+
+        document.getElementById('extraIcon').addEventListener('click', function(e) {
+            e.preventDefault();
+            animateElement(this, 'clicked');
+        });
+
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 30) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const style = document.createElement('style');
+        style.textContent = `
+            .clicked {
+                animation: clickPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+            }
+            
+            @keyframes clickPop {
+                0% { transform: scale(1); }
+                30% { transform: scale(0.85); }
+                60% { transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 
 </body>
