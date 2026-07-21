@@ -1,576 +1,1134 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>سفارشات من</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-*{ box-sizing:border-box; margin:0; padding:0; }
-html,body{ 
-  background:#f8f9fc; 
-  font-family:'Rubik', 'Vazirmatn', sans-serif;
-  display:flex;
-  justify-content:center;
-  color:#1a1a2e;
-  -webkit-user-select:none;
-  user-select:none;
-  -webkit-tap-highlight-color:transparent;
-  min-height:100vh;
-  width:100%;
-  overflow-x:hidden;
-}
-body{
-  min-height:100vh;
-  padding:0;
-  margin:0;
-  background:#f8f9fc;
-  overflow-x:hidden;
-}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>سین‌یار | شیشه‌ای</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.page{
-width:100%;
-max-width:412px;
-min-height:100vh;
-padding:16px 16px 30px;
-margin:0 auto;
-position:relative;
-}
+        html {
+            scroll-behavior: smooth !important;
+        }
 
-.header{
-display:flex;
-align-items:center;
-justify-content:space-between;
-margin-bottom:14px;
-padding-top:2px;
-}
-.back-btn{
-width:42px;
-height:42px;
-border-radius:14px;
-background:#ffffff;
-border:1px solid #eef0f4;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-transition:transform .25s ease;
-color:#6b7280;
-box-shadow:0 2px 6px rgba(0,0,0,0.04);
-outline:none;
-}
-.back-btn:active{ transform:scale(.88); }
-.back-btn svg{ width:22px; height:22px; stroke:currentColor; }
+        body {
+            font-family: 'Rubik', sans-serif;
+            direction: rtl;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: #e8e8ec;
+            background-image: 
+                radial-gradient(ellipse at 30% 40%, rgba(108, 92, 231, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(0, 0, 0, 0.04) 0%, transparent 60%);
+            position: relative;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
 
-.title{
-display:flex;
-align-items:center;
-gap:10px;
-font-size:20px;
-font-weight:800;
-color:#1a1a2e;
-letter-spacing:-0.5px;
-}
-.title svg{ width:26px; height:26px; flex-shrink:0; }
-.title span{ color:#1a1a2e; }
-.header-spacer{ width:42px; }
+        body::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
 
-.subtitle{
-font-size:12px;
-color:#9ca3af;
-font-weight:500;
-text-align:right;
-margin-bottom:14px;
-}
+        /* ============================================================
+           دایره‌های تزیینی پس‌زمینه
+           ============================================================ */
+        .bg-circle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .bg-circle-1 {
+            width: 300px;
+            height: 300px;
+            top: -80px;
+            right: -80px;
+            background: rgba(108, 92, 231, 0.15);
+            filter: blur(40px);
+        }
+        .bg-circle-2 {
+            width: 250px;
+            height: 250px;
+            bottom: -60px;
+            left: -60px;
+            background: rgba(108, 92, 231, 0.12);
+            filter: blur(30px);
+        }
+        .bg-circle-3 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 20%;
+            background: rgba(255, 255, 255, 0.4);
+            filter: blur(20px);
+        }
 
-.search-box{
-display:flex;
-align-items:center;
-gap:10px;
-background:#ffffff;
-border:1px solid #eef0f4;
-border-radius:14px;
-padding:10px 16px;
-margin-bottom:14px;
-transition:all .3s ease;
-box-shadow:0 2px 6px rgba(0,0,0,0.04);
-}
-.search-box:focus-within{
-border-color:#1a1a2e;
-box-shadow:0 4px 14px rgba(0,0,0,0.06);
-}
-.search-box svg{ width:20px; height:20px; flex-shrink:0; }
-.search-box input{
-flex:1;
-background:transparent;
-border:none;
-outline:none;
-color:#1a1a2e;
-font-family:'Rubik', 'Vazirmatn', sans-serif;
-font-size:13px;
-font-weight:500;
-direction:rtl;
-}
-.search-box input::placeholder{ color:#c4c9d4; font-weight:400; }
+        /* ============================================================
+           باکس‌های جدا
+           ============================================================ */
+        .wrapper {
+            max-width: 650px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
 
-.filter-tabs{
-display:flex;
-gap:6px;
-margin-bottom:14px;
-}
-.filter-btn{
-flex:1;
-padding:7px 4px;
-border-radius:30px;
-border:1px solid #e0e4ea;
-background:#ffffff;
-color:#6b7280;
-font-family:'Rubik', 'Vazirmatn', sans-serif;
-font-size:12px;
-font-weight:700;
-cursor:pointer;
-transition:all .35s cubic-bezier(0.34, 1.56, 0.64, 1);
-text-align:center;
-display:flex;
-align-items:center;
-justify-content:center;
-gap:5px;
-box-shadow:0 2px 6px rgba(0,0,0,0.04);
-outline:none;
-}
-.filter-btn:active{ transform:scale(.94); }
-.filter-btn.active{
-background:#1a1a2e;
-color:#ffffff;
-border-color:#1a1a2e;
-box-shadow:0 4px 16px rgba(26,26,46,0.18);
-transform:scale(1.02);
-}
-.filter-btn.active:active{ transform:scale(.94); }
-.filter-btn svg{ width:16px; height:16px; flex-shrink:0; transition:all .4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.filter-btn.active svg{ transform:scale(1.1); filter:brightness(0) invert(1); }
+        /* ===== استایل عمومی باکس‌ها ===== */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.06),
+                0 10px 30px rgba(0, 0, 0, 0.04),
+                inset 0 1px 1px rgba(255, 255, 255, 0.8);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
-.filter-btn[data-filter="completed"].active{
-  background:#10b981;
-  border-color:#10b981;
-}
-.filter-btn[data-filter="canceled"].active{
-  background:#ef4444;
-  border-color:#ef4444;
-}
-.filter-btn[data-filter="active"].active{
-  background:#f59e0b;
-  border-color:#f59e0b;
-}
-.filter-btn[data-filter="all"].active{
-  background:#1a1a2e;
-  border-color:#1a1a2e;
-}
+        .glass-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.08),
+                0 15px 40px rgba(0, 0, 0, 0.05),
+                inset 0 1px 2px rgba(255, 255, 255, 0.9);
+        }
 
-#ordersList{
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-.order-card{
-background:#ffffff;
-border:1px solid #eef0f4;
-border-radius:16px;
-padding:14px 16px;
-transition:all .3s ease;
-cursor:default;
-box-shadow:0 2px 6px rgba(0,0,0,0.04);
-}
-.order-card:active{ transform:scale(.97); }
+        /* ============================================================
+           باکس اول - محتوای اصلی
+           ============================================================ */
+        .box-main {
+            border-radius: 48px;
+            padding: 28px 28px 24px;
+            text-align: center;
+        }
 
-.order-card-top{
-display:flex;
-align-items:center;
-justify-content:space-between;
-margin-bottom:6px;
-}
-.order-id{
-font-family:'Rubik', sans-serif;
-font-weight:600;
-font-size:11px;
-color:#9ca3af;
-}
-.order-id span{ color:#1a1a2e; font-weight:700; }
+        .hero-box {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border-radius: 24px;
+            padding: 22px 22px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.04),
+                0 6px 16px rgba(0, 0, 0, 0.02),
+                inset 0 1px 1px rgba(255, 255, 255, 0.7);
+            
+            mask-image: linear-gradient(to bottom, 
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0, 0, 0, 0.2) 8%,
+                rgba(0, 0, 0, 0.7) 20%,
+                rgba(0, 0, 0, 1) 35%,
+                rgba(0, 0, 0, 1) 65%,
+                rgba(0, 0, 0, 0.7) 80%,
+                rgba(0, 0, 0, 0.2) 92%,
+                rgba(0, 0, 0, 0) 100%
+            );
+            -webkit-mask-image: linear-gradient(to bottom, 
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0, 0, 0, 0.2) 8%,
+                rgba(0, 0, 0, 0.7) 20%,
+                rgba(0, 0, 0, 1) 35%,
+                rgba(0, 0, 0, 1) 65%,
+                rgba(0, 0, 0, 0.7) 80%,
+                rgba(0, 0, 0, 0.2) 92%,
+                rgba(0, 0, 0, 0) 100%
+            );
+        }
 
-.order-status{
-display:flex;
-align-items:center;
-gap:5px;
-padding:2px 10px;
-border-radius:16px;
-font-size:10px;
-font-weight:700;
-letter-spacing:0.2px;
-}
-.order-status svg{ width:12px; height:12px; flex-shrink:0; }
-.order-status.active{ background:#fef3c7; color:#d97706; }
-.order-status.active svg{ stroke:#d97706; }
-.order-status.completed{ background:#d1fae5; color:#059669; }
-.order-status.completed svg{ stroke:#059669; }
-.order-status.canceled{ background:#fee2e2; color:#dc2626; }
-.order-status.canceled svg{ stroke:#dc2626; }
+        .hero-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(108, 92, 231, 0.25), 
+                transparent
+            );
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 3;
+        }
 
-.order-card-middle{
-display:flex;
-align-items:center;
-justify-content:space-between;
-margin-bottom:6px;
-}
-.order-product{
-display:flex;
-align-items:center;
-gap:10px;
-}
-.order-product-icon{
-width:36px;
-height:36px;
-border-radius:10px;
-background:#1a1a2e;
-display:flex;
-align-items:center;
-justify-content:center;
-flex-shrink:0;
-}
-.order-product-icon svg{ width:18px; height:18px; color:#ffffff; }
-.order-product-info{
-display:flex;
-flex-direction:column;
-gap:1px;
-}
-.order-product-name{
-font-size:13px;
-font-weight:700;
-color:#1a1a2e;
-}
-.order-product-desc{
-font-size:10px;
-color:#9ca3af;
-font-weight:500;
-}
-.order-stats{
-display:flex;
-align-items:center;
-gap:10px;
-}
-.order-stats .stat-item{
-display:flex;
-flex-direction:column;
-align-items:flex-end;
-}
-.order-stats .stat-value{
-font-family:'Rubik', sans-serif;
-font-weight:800;
-font-size:15px;
-color:#1a1a2e;
-direction:ltr;
-}
-.order-stats .stat-label{
-font-size:8px;
-color:#9ca3af;
-font-weight:600;
-text-transform:uppercase;
-letter-spacing:0.4px;
-}
-.order-card-bottom{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding-top:8px;
-border-top:1px solid #f0f2f6;
-}
-.order-date{
-font-size:10px;
-color:#9ca3af;
-font-weight:500;
-display:flex;
-align-items:center;
-gap:5px;
-}
-.order-date svg{ width:16px; height:16px; flex-shrink:0; }
-.order-rakt{
-display:flex;
-align-items:center;
-gap:4px;
-font-family:'Rubik', sans-serif;
-font-weight:700;
-font-size:11px;
-color:#1a1a2e;
-}
-.order-rakt .rakt-icon{
-width:14px;
-height:14px;
-background:#1a1a2e;
-border-radius:3px;
-display:inline-flex;
-align-items:center;
-justify-content:center;
-flex-shrink:0;
-}
-.order-rakt .rakt-icon svg{ width:9px; height:9px; color:#ffffff; }
+        .hero-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 45%;
+            background: linear-gradient(180deg, 
+                rgba(255, 255, 255, 0.12) 0%,
+                transparent 100%
+            );
+            border-radius: 24px 24px 0 0;
+            pointer-events: none;
+            z-index: 3;
+        }
 
-/* ===== خالی ===== */
-.empty-orders{
-text-align:center;
-padding:60px 20px;
-display:flex;
-flex-direction:column;
-align-items:center;
-}
-.empty-orders .empty-icon{
-width:80px;
-height:80px;
-border-radius:18px;
-background:#ffffff;
-border:1px solid #eef0f4;
-display:flex;
-align-items:center;
-justify-content:center;
-margin-bottom:16px;
-box-shadow:0 2px 6px rgba(0,0,0,0.04);
-}
-.empty-orders .empty-icon svg{
-width:40px;
-height:40px;
-color:#d1d5db;
-}
-.empty-orders h3{
-font-size:18px;
-font-weight:700;
-color:#6b7280;
-margin-bottom:4px;
-}
-.empty-orders p{
-font-size:13px;
-color:#b0b8c4;
-font-weight:500;
-}
+        .hero-icon-full {
+            width: 100%;
+            max-width: 260px;
+            height: auto;
+            margin: 0 auto 2px;
+            display: block;
+            position: relative;
+            z-index: 2;
+        }
 
-::-webkit-scrollbar{ width:0px; height:0px; background:transparent; }
-*{ scrollbar-width:none; -ms-overflow-style:none; }
+        .hero-icon-full svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
 
-@media (max-width:380px){
-.page{ padding:12px 12px 20px; }
-.title{ font-size:17px; }
-.title svg{ width:22px; height:22px; }
-.filter-btn{ font-size:11px; padding:6px 2px; border-radius:24px; }
-.filter-btn svg{ width:14px; height:14px; }
-.order-card{ padding:12px 14px; border-radius:14px; }
-.order-product-icon{ width:32px; height:32px; border-radius:8px; }
-.order-product-icon svg{ width:15px; height:15px; }
-.order-product-name{ font-size:12px; }
-.order-stats .stat-value{ font-size:14px; }
-.order-status svg{ width:10px; height:10px; }
-.order-date svg{ width:14px; height:14px; }
-}
-</style>
+        .title-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 8px 18px;
+            margin: 4px auto 6px;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.02),
+                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-box .title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            line-height: 1.3;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            flex-wrap: nowrap;
+            
+            color: #1a1a2e;
+            
+            background: linear-gradient(135deg, 
+                #1a1a2e 0%,
+                #2d1b69 35%,
+                #6c5ce7 65%,
+                #2d1b69 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            
+            text-shadow: 0 2px 30px rgba(108, 92, 231, 0.06);
+        }
+
+        .hero-box .title .sep {
+            font-weight: 300;
+            color: #aaa;
+            -webkit-text-fill-color: #aaa;
+            opacity: 0.3;
+        }
+
+        .hero-box .title .bold {
+            font-weight: 900;
+        }
+
+        .hero-box .description {
+            font-size: 1rem;
+            color: #1a1a2e;
+            font-weight: 400;
+            line-height: 1.8;
+            text-align: justify;
+            position: relative;
+            z-index: 2;
+            padding: 0 2px;
+            letter-spacing: 0.1px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .hero-box .description strong {
+            color: #2d1b69;
+            font-weight: 700;
+        }
+
+        .hero-box .description .highlight-text {
+            color: #6c5ce7;
+            font-weight: 600;
+        }
+
+        /* ===== دکمه‌ها ===== */
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .btn-first {
+            grid-column: 1 / -1;
+        }
+
+        .btn-second, .btn-third {
+            grid-column: span 1;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 14px;
+            border-radius: 18px;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #1a1a2e;
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.02),
+                inset 0 1px 1px rgba(255, 255, 255, 0.4);
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .btn svg path,
+        .btn svg circle,
+        .btn svg rect {
+            stroke: #1a1a2e;
+            transition: stroke 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 12px 32px rgba(0, 0, 0, 0.06),
+                inset 0 1px 2px rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn:hover svg {
+            transform: scale(1.05) rotate(-4deg);
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #000;
+            font-weight: 700;
+            box-shadow: 
+                0 6px 24px rgba(108, 92, 231, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.02),
+                inset 0 1px 1px rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.04), rgba(108, 92, 231, 0.08));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.5);
+            border-color: rgba(108, 92, 231, 0.3);
+            box-shadow: 
+                0 12px 40px rgba(108, 92, 231, 0.12),
+                0 4px 12px rgba(0, 0, 0, 0.02),
+                inset 0 1px 2px rgba(255, 255, 255, 0.6);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .btn-primary svg path,
+        .btn-primary svg circle {
+            stroke: #6c5ce7;
+        }
+
+        .btn-primary:hover svg path,
+        .btn-primary:hover svg circle {
+            stroke: #5a4bd1;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 
+                0 8px 28px rgba(0, 0, 0, 0.04),
+                inset 0 1px 2px rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-secondary svg path,
+        .btn-secondary svg circle {
+            stroke: #444;
+        }
+
+        .btn-secondary:hover svg path,
+        .btn-secondary:hover svg circle {
+            stroke: #1a1a2e;
+        }
+
+        .btn-outline-light {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 8px 24px rgba(0, 0, 0, 0.03),
+                inset 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-outline-light svg path,
+        .btn-outline-light svg circle {
+            stroke: #666;
+        }
+
+        .btn-outline-light:hover svg path,
+        .btn-outline-light:hover svg circle {
+            stroke: #1a1a2e;
+        }
+
+        /* ============================================================
+           باکس دوم - استوری‌ها
+           ============================================================ */
+        .box-stories {
+            border-radius: 32px;
+            padding: 24px 24px 20px;
+            text-align: center;
+        }
+
+        .box-stories .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .box-stories .header h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .box-stories .header i {
+            color: #6c5ce7;
+            font-size: 0.8rem;
+        }
+
+        .box-stories .header .line {
+            flex: 1;
+            max-width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(108, 92, 231, 0.2));
+            border-radius: 4px;
+        }
+
+        .stories-scroll {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 6px 4px 10px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            justify-content: center;
+        }
+
+        .stories-scroll::-webkit-scrollbar {
+            height: 3px;
+        }
+
+        .stories-scroll::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.04);
+            border-radius: 10px;
+        }
+
+        .stories-scroll::-webkit-scrollbar-thumb {
+            background: rgba(108, 92, 231, 0.3);
+            border-radius: 10px;
+        }
+
+        .story-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: default;
+            scroll-snap-align: center;
+            flex-shrink: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+            transition: none;
+            transform: none !important;
+        }
+
+        .story-item:focus,
+        .story-item:active,
+        .story-item:hover {
+            outline: none;
+            transform: none !important;
+        }
+
+        .story-circle {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            transition: none;
+            transform: none !important;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+
+        .story-circle:focus,
+        .story-circle:active,
+        .story-circle:hover {
+            outline: none;
+            transform: none !important;
+        }
+
+        .story-circle.instagram::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+            transition: none;
+        }
+
+        .story-circle.telegram::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #0088cc, #00b2ff, #0088cc);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+            transition: none;
+        }
+
+        .story-circle.youtube::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #FF0000, #cc0000, #FF0000);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+            transition: none;
+        }
+
+        .story-circle.facebook::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #4267B2, #6d8fd1, #4267B2);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+            transition: none;
+        }
+
+        .story-circle.tiktok::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #000000, #25f4ee, #fe2c55, #000000);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+            transition: none;
+        }
+
+        .story-circle .icon-wrap {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: #fff;
+            transition: none;
+            transform: none !important;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .story-circle .icon-wrap:focus,
+        .story-circle .icon-wrap:active,
+        .story-circle .icon-wrap:hover {
+            transform: none !important;
+        }
+
+        .story-circle.instagram .icon-wrap {
+            color: #E4405F;
+        }
+        .story-circle.telegram .icon-wrap {
+            color: #0088cc;
+        }
+        .story-circle.youtube .icon-wrap {
+            color: #FF0000;
+        }
+        .story-circle.facebook .icon-wrap {
+            color: #4267B2;
+        }
+        .story-circle.tiktok .icon-wrap {
+            color: #000000;
+        }
+
+        .story-item .name {
+            font-size: 0.55rem;
+            font-weight: 500;
+            color: #555;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: none;
+            transform: none !important;
+        }
+
+        .story-item .name:hover,
+        .story-item .name:focus,
+        .story-item .name:active {
+            transform: none !important;
+            color: #555;
+        }
+
+        /* ============================================================
+           توست
+           ============================================================ */
+        .toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            color: #111;
+            padding: 12px 28px;
+            border-radius: 18px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 999;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+            white-space: nowrap;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ============================================================
+           اسکرول به بالا
+           ============================================================ */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #111;
+            font-size: 1.1rem;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.8);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .scroll-top:hover {
+            background: rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+        }
+
+        /* ============================================================
+           ریسپانسیو
+           ============================================================ */
+        @media (max-width: 600px) {
+            .wrapper {
+                gap: 16px;
+            }
+
+            .box-main {
+                padding: 18px 14px 16px;
+                border-radius: 32px;
+            }
+            .hero-box {
+                padding: 16px 14px 14px;
+                border-radius: 20px;
+            }
+            .hero-box .title {
+                font-size: 1.1rem;
+                white-space: nowrap !important;
+                display: inline-flex !important;
+                flex-wrap: nowrap !important;
+            }
+            .hero-box .description {
+                font-size: 0.88rem;
+                line-height: 1.7;
+            }
+            .hero-icon-full {
+                max-width: 180px;
+            }
+            .buttons {
+                gap: 8px;
+                margin-top: 14px;
+            }
+            .btn {
+                padding: 12px 10px;
+                font-size: 0.78rem;
+                border-radius: 14px;
+                white-space: nowrap;
+            }
+            .btn svg {
+                width: 17px;
+                height: 17px;
+            }
+            .title-box {
+                padding: 6px 14px;
+            }
+
+            .box-stories {
+                padding: 18px 14px 16px;
+                border-radius: 24px;
+            }
+            .box-stories .header h2 {
+                font-size: 0.85rem;
+            }
+            .story-circle {
+                width: 56px;
+                height: 56px;
+            }
+            .story-circle .icon-wrap {
+                width: 46px;
+                height: 46px;
+                font-size: 1.6rem;
+            }
+            .story-item .name {
+                font-size: 0.45rem;
+            }
+            .stories-scroll {
+                gap: 12px;
+            }
+
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+                bottom: 16px;
+                right: 16px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .hero-box .title {
+                font-size: 0.95rem;
+                white-space: nowrap !important;
+                display: inline-flex !important;
+                flex-wrap: nowrap !important;
+            }
+            .hero-box .description {
+                font-size: 0.78rem;
+                line-height: 1.7;
+            }
+            .btn {
+                padding: 10px 8px;
+                font-size: 0.7rem;
+                border-radius: 12px;
+            }
+            .btn svg {
+                width: 15px;
+                height: 15px;
+            }
+            .hero-icon-full {
+                max-width: 150px;
+            }
+            .title-box {
+                padding: 5px 10px;
+            }
+
+            .story-circle {
+                width: 48px;
+                height: 48px;
+            }
+            .story-circle .icon-wrap {
+                width: 38px;
+                height: 38px;
+                font-size: 1.3rem;
+            }
+            .stories-scroll {
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-box .title {
+                font-size: 0.8rem;
+                white-space: nowrap !important;
+                display: inline-flex !important;
+                flex-wrap: nowrap !important;
+            }
+            .hero-box .description {
+                font-size: 0.7rem;
+            }
+            .btn {
+                padding: 8px 6px;
+                font-size: 0.62rem;
+                border-radius: 10px;
+            }
+            .btn svg {
+                width: 13px;
+                height: 13px;
+            }
+            .hero-icon-full {
+                max-width: 120px;
+            }
+            .title-box {
+                padding: 4px 8px;
+            }
+
+            .story-circle {
+                width: 42px;
+                height: 42px;
+            }
+            .story-circle .icon-wrap {
+                width: 34px;
+                height: 34px;
+                font-size: 1rem;
+            }
+            .stories-scroll {
+                gap: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="page">
+    <div class="bg-circle bg-circle-1"></div>
+    <div class="bg-circle bg-circle-2"></div>
+    <div class="bg-circle bg-circle-3"></div>
 
-  <div class="header">
-    <div class="back-btn" id="backBtn">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M13 19L7 12L8.5 10.25M13 5L11 7.33333" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M17 5L11 12L12.5 13.75M17 19L15 16.6667" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <div class="title">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M22 14V12C22 8.22876 22 6.34315 20.8284 5.17157C19.6569 4 17.7712 4 14 4M14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4" stroke="#1a1a2e" stroke-width="1.8" stroke-linecap="round"/>
-        <path d="M7 4V2.5" stroke="#1a1a2e" stroke-width="1.8" stroke-linecap="round"/>
-        <path d="M17 4V2.5" stroke="#1a1a2e" stroke-width="1.8" stroke-linecap="round"/>
-        <circle cx="18" cy="18" r="3" stroke="#1a1a2e" stroke-width="1.8"/>
-        <path d="M20.5 20.5L22 22" stroke="#1a1a2e" stroke-width="1.8" stroke-linecap="round"/>
-        <path d="M21.5 9H16.625H10.75M2 9H5.875" stroke="#1a1a2e" stroke-width="1.8" stroke-linecap="round"/>
-      </svg>
-      <span>سفارشات من</span>
-    </div>
-    <div class="header-spacer"></div>
-  </div>
+    <div class="wrapper">
 
-  <div class="subtitle">مدیریت و پیگیری سفارشات ثبت شده</div>
+        <!-- ============================================================
+        باکس اول - محتوای اصلی
+        ============================================================ -->
+        <div class="glass-box box-main">
 
-  <div class="search-box">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M18.5 18.5L22 22" stroke="#1a1a2e" stroke-width="1.8" stroke-linecap="round"/>
-      <path d="M6.75 3.27093C8.14732 2.46262 9.76964 2 11.5 2C16.7467 2 21 6.25329 21 11.5C21 16.7467 16.7467 21 11.5 21C6.25329 21 2 16.7467 2 11.5C2 9.76964 2.46262 8.14732 3.27093 6.75" stroke="#1a1a2e" stroke-width="1.8" stroke-linecap="round"/>
-    </svg>
-    <input type="text" placeholder="جستجو در سفارشات ..." id="searchInput">
-  </div>
+            <div class="hero-box">
 
-  <div class="filter-tabs" id="filterTabs">
-    <button class="filter-btn active" data-filter="all">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      همه
-    </button>
-    <button class="filter-btn" data-filter="active">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 10.5778 21.7031 9.22492 21.1679 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="0.5 3.5"/>
-        <path d="M22 12C22 10.1786 21.513 8.47087 20.6622 7M12 2C13.8214 2 15.5291 2.48697 17 3.33782" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M12 9V13H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      فعال
-    </button>
-    <button class="filter-btn" data-filter="completed">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 7V6.37006C21 5.17705 21 4.58055 20.842 4.09946C20.5425 3.18719 19.8468 2.47096 18.9606 2.16261C18.4933 2 17.9139 2 16.755 2H7.24502C6.08614 2 5.50671 2 5.03939 2.16261C4.15322 2.47096 3.45748 3.18719 3.15795 4.09946C3 4.58055 3 5.17705 3 6.37006V15M21 11V20.3742C21 21.2324 20.015 21.6878 19.3919 21.1176C19.0258 20.7826 18.4742 20.7826 18.1081 21.1176L17.625 21.5597C16.9834 22.1468 16.0166 22.1468 15.375 21.5597C14.7334 20.9726 13.7666 20.9726 13.125 21.5597C12.4834 22.1468 11.5166 22.1468 10.875 21.5597C10.2334 20.9726 9.26659 20.9726 8.625 21.5597C7.98341 22.1468 7.01659 22.1468 6.375 21.5597L5.8919 21.1176C5.52583 20.7826 4.97417 20.7826 4.6081 21.1176C3.985 21.6878 3 21.2324 3 20.3742V19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M9.5 10.4L10.9286 12L14.5 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M7.5 15.5H9M16.5 15.5H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-      تکمیل
-    </button>
-    <button class="filter-btn" data-filter="canceled">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-      لغو شده
-    </button>
-  </div>
+                <div class="hero-icon-full">
+                    <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+                        <path d="M905.5 568.6c-1.1 11-11.2 16.5-19.8 21.5-8 4.6-16 9.3-23.9 13.9-12.8 7.4-25.5 14.8-38.3 22.2-16 9.3-31.9 18.6-47.9 27.8-17.6 10.2-35.2 20.5-52.9 30.7-17.7 10.3-35.4 20.6-53.2 30.9-16.3 9.5-32.5 18.9-48.8 28.4-13.3 7.7-26.5 15.4-39.8 23.1-8.7 5-17.4 10.1-26.1 15.1-6.6 3.8-12.8 7.6-20.3 9.8-19.5 5.6-41.1 3.7-58.7-6.5-6.3-3.7-12.7-7.3-19-11-11.6-6.7-23.1-13.3-34.7-20-15.2-8.8-30.4-17.6-45.6-26.3-17.3-10-34.7-20-52-30-17.9-10.3-35.8-20.7-53.7-31-16.9-9.8-33.8-19.5-50.8-29.3L176.8 613c-10.3-6-20.7-11.9-31-17.9-4.7-2.7-9.4-5.4-14.1-8.2-7.4-4.3-14.7-11.1-14.7-20.3 0 8.4 0 16.8-0.1 25.3 0 3-0.2 6.1 0 9.2 0.6 8.1 7 14.4 13.7 18.4 4.1 2.5 8.3 4.8 12.5 7.2 10.8 6.2 21.6 12.5 32.4 18.7 15.6 9 31.1 18 46.7 27 18.5 10.7 37.1 21.4 55.6 32.1 19.3 11.2 38.6 22.3 58 33.5 18.4 10.6 36.7 21.2 55.1 31.8 15.3 8.8 30.5 17.6 45.8 26.4 10.3 6 20.7 11.9 31 17.9 6 3.4 11.9 7.3 18.4 9.7 20.3 7.4 44.1 5.8 62.8-5.1 7.1-4.1 14.2-8.3 21.3-12.4 13.1-7.6 26.2-15.2 39.2-22.8 17.1-9.9 34.1-19.8 51.2-29.8 19.1-11.1 38.2-22.2 57.2-33.3l57.3-33.3c17.1-10 34.2-19.9 51.4-29.9 13.3-7.7 26.6-15.4 39.9-23.2 7.3-4.3 14.7-8.5 22-12.8 2.2-1.3 4.5-2.6 6.6-4.1 5.6-4.2 10-10 10.1-17.3 0.1-3.7 0-7.3 0-11 0-7.3 0-14.7 0.1-22 0.4 0.8 0.3 1.3 0.3 1.8 0 0.3 0-0.2 0 0zM905.6 567.1z" fill="#7A9EFD"/>
+                        <path d="M891.3 547.1c19 11 19.1 28.9 0.2 39.9L547.1 787.1c-18.9 11-49.8 11-68.8 0L131.6 587c-19-11-19.1-28.9-0.2-39.9L475.8 347c18.9-11 49.8-11 68.8 0l346.7 200.1z" fill="#E4ECF9"/>
+                        <path d="M608.5 194.9c-0.1 0-0.1 0 0 0-0.3-0.2-0.5-0.3-0.8-0.4h-0.1c-0.1 0-0.2-0.1-0.2-0.1-0.1 0-0.2-0.1-0.4-0.1-0.1 0-0.3-0.1-0.4-0.1-0.1 0-0.2 0-0.2-0.1h-0.1c-0.3 0-0.5-0.1-0.8-0.1h-1.9c-0.1 0-0.2 0-0.3 0.1-0.2 0-0.4 0.1-0.6 0.1-0.1 0-0.2 0-0.3 0.1-0.1 0-0.2 0.1-0.3 0.1-0.3 0.1-0.6 0.2-1 0.3-0.1 0-0.2 0.1-0.3 0.1-0.1 0-0.1 0.1-0.2 0.1-0.6 0.2-1.1 0.5-1.7 0.8L292.7 372.6c-0.7 0.4-1.4 0.9-2.1 1.4-0.1 0.1-0.2 0.2-0.4 0.3-0.6 0.5-1.3 1.1-1.9 1.7-0.1 0-0.1 0.1-0.2 0.1l-0.3 0.3c-0.3 0.3-0.6 0.6-0.9 1l-0.3 0.3c-0.1 0.1-0.2 0.2-0.2 0.3-0.2 0.2-0.4 0.4-0.5 0.6-0.1 0.1-0.2 0.3-0.3 0.4-0.1 0.1-0.2 0.3-0.3 0.4-0.1 0.2-0.3 0.3-0.4 0.5l-0.3 0.3c-0.1 0.2-0.3 0.4-0.4 0.6-0.1 0.1-0.2 0.3-0.3 0.4 0 0.1-0.1 0.1-0.1 0.2-0.2 0.4-0.5 0.8-0.7 1.2v0.1c0 0.1-0.1 0.2-0.1 0.2-0.2 0.3-0.3 0.6-0.5 0.8-0.1 0.1-0.1 0.3-0.2 0.4-0.1 0.1-0.1 0.3-0.2 0.4-0.1 0.1-0.1 0.2-0.2 0.4-0.1 0.3-0.3 0.6-0.4 0.9 0 0.1-0.1 0.1-0.1 0.2v0.1c-0.2 0.4-0.3 0.8-0.5 1.2 0 0.1 0 0.1-0.1 0.2s-0.1 0.3-0.2 0.4c-0.1 0.2-0.2 0.4-0.2 0.6-0.1 0.2-0.1 0.3-0.1 0.5-0.1 0.2-0.1 0.4-0.2 0.6 0 0.1-0.1 0.2-0.1 0.4-0.1 0.2-0.1 0.4-0.1 0.6-0.1 0.2-0.1 0.5-0.2 0.7 0 0.1 0 0.2-0.1 0.3 0 0.2-0.1 0.3-0.1 0.5-0.1 0.4-0.1 0.7-0.2 1.1 0 0.1 0 0.2-0.1 0.3v0.3c-0.1 0.8-0.2 1.6-0.2 2.4l0.6 210.8c0 2.1 0.4 3.9 1.1 5.4 0.7 1.5 1.7 2.6 2.9 3.3l14.8 8.6c-2.4-1.4-4-4.4-4-8.7l-0.4-211c0-0.8 0.1-1.6 0.2-2.4 0-0.2 0-0.4 0.1-0.6 0.1-0.4 0.1-0.7 0.2-1.1 0-0.2 0.1-0.5 0.1-0.7 0.1-0.2 0.1-0.5 0.2-0.7 0.1-0.3 0.2-0.6 0.3-1 0.1-0.2 0.1-0.4 0.2-0.6 0.1-0.4 0.2-0.7 0.4-1.1 0.1-0.1 0.1-0.3 0.2-0.4l0.6-1.5c0-0.1 0.1-0.1 0.1-0.2 0.2-0.4 0.4-0.9 0.6-1.3 0.1-0.1 0.1-0.3 0.2-0.4 0.2-0.4 0.4-0.8 0.7-1.2 0-0.1 0.1-0.2 0.1-0.2 0.3-0.5 0.6-0.9 0.9-1.4 0.1-0.1 0.2-0.3 0.3-0.4 0.2-0.3 0.4-0.6 0.7-1 0.1-0.2 0.3-0.3 0.4-0.5 0.2-0.3 0.4-0.5 0.6-0.8 0.2-0.2 0.4-0.4 0.5-0.6 0.2-0.2 0.3-0.4 0.5-0.6 0.3-0.3 0.6-0.6 0.9-1 0.1-0.2 0.3-0.3 0.5-0.5 0.6-0.6 1.2-1.2 1.9-1.7 0.1-0.1 0.2-0.2 0.4-0.3 0.7-0.5 1.4-1 2.1-1.4L614 204.3c0.6-0.3 1.1-0.6 1.7-0.8 0.2-0.1 0.4-0.1 0.5-0.2l0.9-0.3c0.2-0.1 0.4-0.1 0.6-0.2 0.2 0 0.4-0.1 0.6-0.1 0.2 0 0.5-0.1 0.7-0.1h1.5c0.3 0 0.7 0.1 1 0.1 0.1 0 0.2 0 0.2 0.1 0.3 0.1 0.5 0.1 0.7 0.2 0.1 0 0.2 0.1 0.2 0.1 0.3 0.1 0.6 0.3 0.9 0.4l-15-8.6z" fill="#2A2ABC"/>
+                        <path d="M613.6 204.5c7.5-4.3 13.6-0.8 13.6 7.7l0.6 210.8c0 8.6-6.1 19.1-13.5 23.4L308.2 623.1c-7.5 4.3-13.6 0.8-13.6-7.7l-0.6-210.8c0-8.6 6.1-19.1 13.5-23.4l306.1-176.7z" fill="#4040FF"/>
+                        <path d="M371.4 454.3c17-9.8 30.8-2.2 30.8 17v2.2c0 7.6-13.7 15.8-30.7 25.6l-19.8 11.4c-17 9.8-30.7 17.7-30.8 9.9v-2.2c-0.1-19.2 13.7-42.7 30.6-52.5l19.9-11.4z" fill="#2828CE"/>
+                        <path d="M324.7 526.8c0 1 0.3 1.8 0.7 2.3 0.2 0.2 0.3 0.3 0.5 0.4l10.8 6.3c-0.8-0.5-1.3-1.4-1.3-2.8v-2.2l-10.8-6.3 0.1 2.3z" fill="#ACC5EA"/>
+                        <path d="M397.2 458.5c-0.1 0-0.1-0.1-0.2-0.1-0.5-0.3-1-0.5-1.5-0.7-0.1 0-0.2-0.1-0.3-0.1-0.2-0.1-0.3-0.1-0.5-0.2-0.3-0.1-0.5-0.2-0.8-0.3-0.3-0.1-0.6-0.1-0.9-0.2-0.2 0-0.3-0.1-0.5-0.1-0.1 0-0.2 0-0.3-0.1-0.6-0.1-1.2-0.2-1.9-0.2h-2c-0.2 0-0.4 0-0.5 0.1-0.3 0-0.6 0.1-0.9 0.1-0.3 0-0.5 0-0.8 0.1-0.3 0-0.5 0.1-0.8 0.2-0.4 0.1-0.8 0.2-1.3 0.3-0.2 0.1-0.4 0.1-0.7 0.1-0.5 0.1-1.1 0.3-1.7 0.5h-0.1c-0.6 0.2-1.3 0.5-1.9 0.7-0.3 0.1-0.5 0.2-0.8 0.4-0.2 0.1-0.5 0.2-0.7 0.3-0.9 0.4-1.9 0.9-2.9 1.5l-19.8 11.4c-1 0.6-2 1.2-2.9 1.9-0.3 0.2-0.6 0.5-0.9 0.7-0.7 0.5-1.3 0.9-1.9 1.5-0.4 0.3-0.7 0.6-1.1 0.9-0.6 0.5-1.2 1-1.7 1.5-0.4 0.3-0.7 0.7-1.1 1-0.2 0.2-0.5 0.4-0.7 0.7l-0.6 0.6c-0.7 0.7-1.4 1.5-2.1 2.3l-0.7 0.7c-0.1 0.2-0.3 0.3-0.4 0.5l-1.2 1.5c-0.3 0.4-0.6 0.7-0.9 1.1-0.2 0.2-0.3 0.4-0.5 0.7-0.3 0.4-0.6 0.8-0.8 1.2-0.2 0.3-0.5 0.6-0.7 1-0.3 0.4-0.5 0.7-0.8 1.1-0.2 0.3-0.4 0.7-0.7 1-0.1 0.2-0.2 0.4-0.4 0.5-0.5 0.8-1 1.7-1.5 2.5v0.1c-0.5 0.8-1 1.7-1.4 2.6-0.1 0.2-0.2 0.4-0.3 0.7-0.2 0.3-0.3 0.6-0.4 0.9-0.2 0.3-0.4 0.7-0.5 1-0.3 0.5-0.5 1.1-0.8 1.7-0.1 0.2-0.2 0.5-0.3 0.7 0 0.1-0.1 0.2-0.1 0.3-0.4 0.9-0.8 1.8-1.1 2.7 0 0.1-0.1 0.2-0.1 0.3l-0.3 0.9c-0.2 0.5-0.4 1.1-0.6 1.6l-0.3 0.9c-0.1 0.4-0.3 0.8-0.4 1.2l-0.3 0.9c-0.1 0.4-0.2 0.8-0.3 1.3-0.1 0.5-0.3 1-0.4 1.5 0 0.2-0.1 0.4-0.2 0.6-0.1 0.4-0.1 0.7-0.2 1.1-0.1 0.8-0.3 1.5-0.4 2.3 0 0.2-0.1 0.5-0.1 0.7-0.1 0.5-0.1 1-0.1 1.4 0 0.4-0.1 0.7-0.1 1.1-0.1 1.1-0.1 2.2-0.1 3.3l10.8 6.3c0-1.1 0.1-2.2 0.1-3.3 0-0.4 0.1-0.7 0.1-1.1 0.1-0.7 0.2-1.4 0.3-2.2 0.1-0.8 0.2-1.5 0.4-2.3 0.1-0.6 0.2-1.2 0.3-1.7 0.1-0.5 0.2-1 0.4-1.5 0.2-0.7 0.4-1.5 0.6-2.2 0.1-0.4 0.2-0.8 0.4-1.2 0.3-0.8 0.6-1.7 0.9-2.5l0.3-0.9c0.4-1.1 0.9-2.2 1.4-3.3 0.1-0.2 0.2-0.5 0.3-0.7 0.4-0.9 0.8-1.8 1.3-2.7 0.1-0.3 0.3-0.6 0.4-0.9 0.6-1.1 1.1-2.2 1.8-3.2v-0.1c0.6-1 1.2-2.1 1.9-3.1 0.2-0.3 0.4-0.7 0.7-1l1.5-2.1 0.9-1.2c0.4-0.6 0.9-1.2 1.4-1.7l1.2-1.5c0.4-0.4 0.7-0.8 1.1-1.2 0.7-0.8 1.4-1.5 2.1-2.3l1.3-1.3c0.4-0.3 0.7-0.7 1.1-1 0.6-0.5 1.1-1 1.7-1.5 0.4-0.3 0.7-0.6 1.1-0.9 0.6-0.5 1.3-1 1.9-1.5 0.3-0.2 0.6-0.5 0.9-0.7 1-0.7 2-1.3 2.9-1.9l19.8-11.4c1-0.6 1.9-1 2.9-1.5 0.2-0.1 0.5-0.2 0.7-0.3 0.9-0.4 1.8-0.8 2.7-1.1h0.1c0.8-0.3 1.6-0.5 2.3-0.7 0.4-0.1 0.9-0.2 1.3-0.3 0.5-0.1 1.1-0.2 1.6-0.3 0.3 0 0.6-0.1 0.9-0.1 0.7 0 1.3-0.1 1.9 0h0.5c0.8 0 1.5 0.1 2.3 0.3 0.2 0 0.4 0.1 0.5 0.1 0.6 0.1 1.2 0.3 1.7 0.5 0.2 0.1 0.4 0.1 0.5 0.2 0.7 0.3 1.4 0.6 2 1l-11-6.4z" fill="#ACC5EA"/>
+                        <path d="M357.7 402.8c13.1-7.6 23.8-1.7 23.9 13.2s-10.6 33-23.7 40.6c-13.1 7.6-23.8 1.7-23.9-13.2s10.5-33 23.7-40.6z" fill="#2828CE"/>
+                        <path d="M385.9 466.9c17-9.8 30.8-2.2 30.8 17v2.2c0 7.6-13.7 15.8-30.7 25.6l-19.8 11.4c-17 9.8-30.7 17.7-30.8 9.9v-2.2c-0.1-19.2 13.7-42.7 30.6-52.5l19.9-11.4z" fill="#FFFFFF"/>
+                        <path d="M379.7 408.2s0.1 0 0 0c0.7-0.2 1.3-0.4 1.9-0.5 0.3-0.1 0.7-0.1 1-0.2 0.4-0.1 0.8-0.1 1.3-0.2 0.2 0 0.5-0.1 0.7-0.1h1.9c0.6 0 1.2 0.1 1.8 0.2 0.1 0 0.3 0.1 0.4 0.1 0.5 0.1 0.9 0.2 1.3 0.4 0.1 0 0.3 0.1 0.4 0.1 0.5 0.2 1.1 0.5 1.6 0.7l-10.8-6.3s-0.1 0-0.1-0.1l-1.2-0.6c-0.1 0-0.2-0.1-0.2-0.1-0.1-0.1-0.3-0.1-0.4-0.1-0.2-0.1-0.4-0.2-0.6-0.2-0.2-0.1-0.5-0.1-0.7-0.2-0.1 0-0.3-0.1-0.4-0.1h-0.2c-0.5-0.1-1-0.1-1.4-0.2h-2c-0.2 0-0.5 0-0.7 0.1-0.2 0-0.4 0-0.6 0.1-0.2 0-0.4 0.1-0.6 0.1-0.3 0.1-0.7 0.1-1 0.2-0.2 0-0.3 0.1-0.5 0.1-0.4 0.1-0.8 0.2-1.3 0.4h-0.1c-0.5 0.2-1 0.3-1.5 0.6l-0.6 0.3-0.6 0.3c-0.7 0.3-1.5 0.7-2.2 1.1-0.8 0.4-1.5 0.9-2.3 1.4-0.2 0.2-0.5 0.4-0.7 0.5-0.5 0.4-1 0.7-1.5 1.1-0.3 0.2-0.6 0.5-0.8 0.7-0.4 0.4-0.9 0.8-1.3 1.2-0.3 0.3-0.6 0.5-0.8 0.8-0.2 0.2-0.4 0.3-0.6 0.5l-0.5 0.5c-0.6 0.6-1.1 1.2-1.6 1.8-0.2 0.2-0.4 0.4-0.5 0.6-0.1 0.1-0.2 0.3-0.3 0.4-0.3 0.4-0.6 0.7-0.9 1.1-0.2 0.3-0.5 0.5-0.7 0.8-0.1 0.2-0.2 0.3-0.4 0.5-0.2 0.3-0.4 0.6-0.7 0.9-0.2 0.3-0.4 0.5-0.6 0.7l-0.6 0.9c-0.2 0.3-0.3 0.5-0.5 0.8-0.1 0.1-0.2 0.3-0.3 0.4-0.4 0.6-0.8 1.3-1.2 2-0.4 0.7-0.7 1.3-1.1 2-0.1 0.2-0.2 0.3-0.3 0.5-0.1 0.2-0.2 0.5-0.3 0.7-0.1 0.3-0.3 0.5-0.4 0.8-0.2 0.4-0.4 0.9-0.6 1.3-0.1 0.2-0.2 0.4-0.2 0.5 0 0.1-0.1 0.1-0.1 0.2l-0.9 2.1c0 0.1-0.1 0.2-0.1 0.3-0.1 0.2-0.2 0.4-0.2 0.7-0.2 0.4-0.3 0.8-0.5 1.3-0.1 0.2-0.1 0.5-0.2 0.7-0.1 0.3-0.2 0.6-0.3 1-0.1 0.2-0.2 0.5-0.2 0.7-0.1 0.3-0.2 0.7-0.2 1l-0.3 1.2c0 0.2-0.1 0.3-0.1 0.5-0.1 0.3-0.1 0.6-0.1 0.9l-0.3 1.8c0 0.2-0.1 0.4-0.1 0.6 0 0.4-0.1 0.7-0.1 1.1 0 0.3-0.1 0.5-0.1 0.8-0.1 0.9-0.1 1.7-0.1 2.6 0 7.3 2.6 12.4 6.8 14.9l10.8 6.3c-4.2-2.4-6.8-7.6-6.8-14.9 0-0.8 0-1.7 0.1-2.6 0-0.3 0.1-0.5 0.1-0.8 0.1-0.6 0.1-1.1 0.2-1.7l0.3-1.8c0.1-0.4 0.2-0.9 0.3-1.3l0.3-1.2c0.1-0.6 0.3-1.1 0.5-1.7 0.1-0.3 0.2-0.6 0.3-1 0.2-0.7 0.4-1.3 0.7-2 0.1-0.2 0.2-0.4 0.2-0.7 0.3-0.9 0.7-1.7 1-2.6 0.1-0.2 0.2-0.4 0.2-0.5 0.3-0.7 0.6-1.4 1-2.1 0.1-0.2 0.2-0.5 0.3-0.7 0.4-0.8 0.9-1.7 1.4-2.5l1.5-2.4c0.2-0.3 0.3-0.5 0.5-0.8 0.4-0.5 0.7-1.1 1.1-1.6 0.2-0.3 0.4-0.6 0.7-0.9 0.3-0.5 0.7-0.9 1.1-1.3 0.3-0.4 0.6-0.8 0.9-1.1 0.3-0.3 0.6-0.6 0.8-0.9 0.5-0.6 1.1-1.2 1.6-1.8l1-1 0.8-0.8c0.4-0.4 0.9-0.8 1.3-1.2 0.3-0.2 0.6-0.5 0.8-0.7 0.5-0.4 1-0.8 1.5-1.1 0.2-0.2 0.5-0.4 0.7-0.5 0.8-0.5 1.5-1 2.3-1.4 0.7-0.4 1.5-0.8 2.2-1.1l0.6-0.3c0.5-0.4 1.2-0.7 1.9-1z" fill="#ACC5EA"/>
+                        <path d="M374.8 410.5c13.1-7.6 23.8-1.7 23.9 13.2 0 14.9-10.6 33-23.7 40.6-13.1 7.6-23.8 1.7-23.9-13.2s10.6-33 23.7-40.6z" fill="#FFFFFF"/>
+                        <path d="M582.7 264.8c4.7-2.7 8.6-0.5 8.6 4.9s-3.8 12.1-8.5 14.8L447 362.9c-4.7 2.7-8.6 0.5-8.6-4.9s3.8-12.1 8.5-14.8l135.8-78.4zM580.8 327.8c4.7-2.7 8.6-0.5 8.6 4.9s-3.8 12.1-8.5 14.8L445 425.9c-4.7 2.7-8.6 0.5-8.6-4.9s3.8-12.1 8.5-14.8l135.9-78.4z" fill="#2828CE"/>
+                        <path d="M591.4 271.3c-0.1 0-0.1 0 0 0-0.2-0.1-0.3-0.2-0.5-0.2h-0.1s-0.1 0-0.1-0.1c-0.1 0-0.1-0.1-0.2-0.1s-0.2 0-0.2-0.1h-0.2-0.1c-0.2 0-0.3 0-0.5-0.1h-0.5-0.8c-0.1 0-0.2 0-0.3 0.1h-0.2c-0.1 0-0.1 0-0.2 0.1-0.2 0.1-0.4 0.1-0.6 0.2-0.1 0-0.1 0-0.2 0.1 0 0-0.1 0-0.1 0.1-0.4 0.2-0.7 0.3-1.1 0.5l-135.8 78.4c-0.5 0.3-1.1 0.7-1.6 1.1-0.2 0.1-0.3 0.3-0.5 0.4-0.2 0.2-0.5 0.4-0.7 0.7-0.1 0.1-0.2 0.2-0.3 0.4l-0.3 0.3-0.3 0.3c-0.2 0.3-0.5 0.6-0.7 0.9-0.1 0.1-0.2 0.2-0.2 0.3 0 0.1-0.1 0.1-0.1 0.2-0.1 0.1-0.1 0.2-0.2 0.3-0.2 0.2-0.3 0.5-0.5 0.7-0.2 0.2-0.3 0.5-0.4 0.7v0.2l-0.3 0.6c-0.1 0.2-0.3 0.5-0.4 0.7-0.1 0.2-0.2 0.4-0.3 0.7-0.1 0.3-0.2 0.5-0.3 0.8-0.1 0.3-0.2 0.5-0.3 0.8 0 0.1-0.1 0.3-0.1 0.4 0 0.1 0 0.1-0.1 0.2 0 0.1-0.1 0.2-0.1 0.3-0.1 0.3-0.2 0.7-0.2 1 0 0.2-0.1 0.4-0.1 0.6 0 0.1 0 0.2-0.1 0.3 0 0.1 0 0.2-0.1 0.3-0.1 0.6-0.1 1.1-0.1 1.7 0 1.3 0.2 2.5 0.7 3.4 0.4 0.9 1.1 1.6 1.8 2.1l10.8 6.3c-1.5-0.9-2.5-2.8-2.5-5.5 0-0.6 0.1-1.3 0.2-2 0-0.1 0-0.2 0.1-0.3 0.1-0.6 0.2-1.2 0.4-1.9 0-0.1 0-0.1 0.1-0.2 0.2-0.7 0.5-1.4 0.7-2 0.3-0.7 0.6-1.4 1-2v-0.1l1.2-1.8c0-0.1 0.1-0.1 0.1-0.2 0.4-0.5 0.8-1 1.3-1.5l0.3-0.3c0.3-0.4 0.7-0.7 1.1-1 0.2-0.1 0.3-0.3 0.5-0.4 0.5-0.4 1.1-0.8 1.6-1.1L596 278.2c0.4-0.2 0.7-0.4 1.1-0.5 0.1 0 0.2-0.1 0.3-0.1 0.2-0.1 0.4-0.1 0.6-0.2 0.1 0 0.3-0.1 0.4-0.1 0.1 0 0.2-0.1 0.3-0.1 0.2 0 0.3-0.1 0.5-0.1H600.2c0.2 0 0.4 0 0.6 0.1h0.2c0.2 0 0.3 0.1 0.5 0.1 0 0 0.1 0 0.1 0.1l0.6 0.3-10.8-6.4z" fill="#ACC5EA"/>
+                        <path d="M596 278.2c4.7-2.7 8.6-0.5 8.6 4.9s-3.8 12.1-8.5 14.8l-135.8 78.4c-4.7 2.7-8.6 0.5-8.6-4.9s3.8-12.1 8.5-14.8L596 278.2z" fill="#FFFFFF"/>
+                        <path d="M591.4 332.8c-0.1 0-0.1-0.1 0 0-0.2-0.1-0.3-0.2-0.5-0.2h-0.1s-0.1 0-0.1-0.1c-0.1 0-0.1-0.1-0.2-0.1s-0.2 0-0.2-0.1h-0.2-0.1c-0.2 0-0.3 0-0.5-0.1h-0.5-0.8c-0.1 0-0.2 0-0.3 0.1h-0.2c-0.1 0-0.1 0-0.2 0.1-0.2 0.1-0.4 0.1-0.6 0.2-0.1 0-0.1 0-0.2 0.1 0 0-0.1 0-0.1 0.1-0.4 0.2-0.7 0.3-1.1 0.5l-135.8 78.4c-0.5 0.3-1.1 0.7-1.6 1.1-0.2 0.1-0.3 0.3-0.5 0.4-0.2 0.2-0.5 0.4-0.7 0.7-0.1 0.1-0.2 0.2-0.3 0.4l-0.3 0.3-0.3 0.3c-0.2 0.3-0.5 0.6-0.7 0.9-0.1 0.1-0.2 0.2-0.2 0.3 0 0.1-0.1 0.1-0.1 0.2-0.1 0.1-0.1 0.2-0.2 0.3-0.2 0.2-0.3 0.5-0.5 0.7-0.2 0.2-0.3 0.5-0.4 0.7v0.2l-0.3 0.6c-0.1 0.2-0.3 0.5-0.4 0.7-0.1 0.2-0.2 0.4-0.3 0.7v0.1c-0.1 0.3-0.2 0.5-0.3 0.8-0.1 0.3-0.2 0.5-0.3 0.8 0 0.1-0.1 0.3-0.1 0.4 0 0.1 0 0.1-0.1 0.2 0 0.1-0.1 0.2-0.1 0.3-0.1 0.3-0.2 0.7-0.2 1 0 0.2-0.1 0.4-0.1 0.6 0 0.1 0 0.2-0.1 0.3 0 0.1 0 0.2-0.1 0.3-0.1 0.6-0.1 1.1-0.1 1.7 0 2.7 1 4.6 2.5 5.5l10.8 6.3c-1.5-0.9-2.5-2.8-2.5-5.5 0-0.6 0.1-1.3 0.2-2 0-0.1 0-0.2 0.1-0.3 0.1-0.6 0.2-1.2 0.4-1.9 0-0.1 0-0.1 0.1-0.2 0.2-0.7 0.5-1.4 0.7-2 0.3-0.7 0.6-1.3 1-2v-0.1l1.2-1.8c0-0.1 0.1-0.1 0.1-0.2 0.4-0.5 0.8-1 1.3-1.5l0.3-0.3c0.3-0.4 0.7-0.7 1.1-1 0.2-0.1 0.3-0.3 0.5-0.4 0.5-0.4 1.1-0.8 1.6-1.1L596 339.6c0.4-0.2 0.7-0.4 1.1-0.5 0.1 0 0.2-0.1 0.3-0.1 0.2-0.1 0.4-0.1 0.6-0.2 0.1 0 0.3-0.1 0.4-0.1 0.1 0 0.2-0.1 0.4-0.1s0.3-0.1 0.5-0.1H600.3c0.2 0 0.4 0 0.6 0.1h0.2c0.2 0 0.3 0.1 0.5 0.1 0 0 0.1 0 0.1 0.1l0.6 0.3-10.9-6.3z" fill="#ACC5EA"/>
+                        <path d="M596 339.6c4.7-2.7 8.6-0.5 8.6 4.9s-3.8 12.1-8.5 14.8l-135.8 78.4c-4.7 2.7-8.6 0.5-8.6-4.9s3.8-12.1 8.5-14.8L596 339.6z" fill="#FFFFFF"/>
+                        <path d="M521.1 425.8c4.7-2.7 8.6-0.5 8.6 4.9s-3.8 12.1-8.5 14.8l-76.2 44c-4.7 2.7-8.6 0.5-8.6-4.9s3.8-12.1 8.5-14.8l76.2-44z" fill="#2828CE"/>
+                        <path d="M543 435.8l-10.8-6.3c-0.1-0.1-0.3-0.1-0.4-0.2h-0.1s-0.1 0-0.1-0.1c-0.1 0-0.1-0.1-0.2-0.1s-0.2 0-0.2-0.1h-0.2-0.1c-0.2 0-0.3 0-0.5-0.1h-0.5-0.8c-0.1 0-0.2 0-0.4 0.1h-0.2c-0.1 0-0.1 0-0.2 0.1-0.2 0.1-0.4 0.1-0.6 0.2-0.1 0-0.1 0-0.2 0.1 0 0-0.1 0-0.1 0.1-0.4 0.2-0.7 0.3-1.1 0.5l-76.2 44 10.8 6.3 76.2-44c0.4-0.2 0.7-0.4 1.1-0.5 0.1 0 0.2-0.1 0.3-0.1 0.2-0.1 0.4-0.1 0.6-0.2 0.1 0 0.3-0.1 0.4-0.1 0.1 0 0.2-0.1 0.4-0.1s0.3-0.1 0.5-0.1H541.4c0.2 0 0.4 0 0.6 0.1h0.2c0.2 0 0.3 0.1 0.5 0.1 0 0 0.1 0 0.1 0.1-0.1 0.1 0.1 0.2 0.2 0.3zM448.4 475.3c-0.2 0.1-0.3 0.3-0.5 0.4-0.3 0.2-0.5 0.4-0.7 0.7-0.1 0.1-0.2 0.2-0.3 0.4l-0.3 0.3-0.3 0.3c-0.2 0.3-0.5 0.6-0.7 0.8-0.1 0.1-0.2 0.2-0.2 0.3 0 0.1-0.1 0.1-0.1 0.2-0.1 0.1-0.1 0.2-0.2 0.3-0.2 0.2-0.3 0.5-0.5 0.7-0.2 0.2-0.3 0.5-0.4 0.7v0.2l-0.3 0.6c-0.1 0.2-0.3 0.5-0.4 0.7-0.1 0.2-0.2 0.4-0.3 0.7-0.1 0.3-0.2 0.5-0.3 0.8-0.1 0.3-0.2 0.5-0.3 0.8 0 0.1-0.1 0.3-0.1 0.4 0 0.1 0 0.1-0.1 0.2 0 0.1-0.1 0.2-0.1 0.3-0.1 0.3-0.2 0.7-0.2 1 0 0.2-0.1 0.4-0.1 0.6 0 0.1 0 0.2-0.1 0.3v0.3c-0.1 0.6-0.1 1.1-0.1 1.7 0 2.7 1 4.6 2.5 5.5l10.8 6.3c-1.5-0.9-2.5-2.8-2.5-5.5 0-0.6 0.1-1.3 0.2-2 0-0.1 0-0.2 0.1-0.3 0.1-0.6 0.2-1.2 0.4-1.9 0-0.1 0-0.1 0.1-0.2 0.2-0.7 0.5-1.4 0.7-2 0.3-0.7 0.6-1.4 1-2v-0.1l1.2-1.8c0-0.1 0.1-0.1 0.1-0.2 0.4-0.5 0.8-1 1.3-1.5l0.3-0.3c0.3-0.4 0.7-0.7 1.1-1 0.2-0.1 0.3-0.3 0.5-0.4 0.5-0.4 1.1-0.8 1.6-1.1l-10.8-6.3c-1 0.3-1.5 0.6-2 1.1z" fill="#ACC5EA"/>
+                        <path d="M536.9 436.4c4.7-2.7 8.6-0.5 8.6 4.9s-3.8 12.1-8.5 14.8l-76.2 44c-4.7 2.7-8.6 0.5-8.6-4.9s3.8-12.1 8.5-14.8l76.2-44z" fill="#FFFFFF"/>
+                        <path d="M750.9 454.4l-14.8-8.6c0.1 0 0.2 0.1 0.4 0.1l14.8 8.6c-0.2 0-0.3-0.1-0.4-0.1" fill="#A8871E"/>
+                        <path d="M751.2 454.5l-14.8-8.6 0.6 0.3 14.8 8.6-0.6-0.3" fill="#A3831D"/>
+                        <path d="M751.8 454.8l-14.8-8.6h0.1l14.7 8.6" fill="#9E7F1D"/>
+                        <path d="M639.4 613.4l-14.8-8.6c-0.4-0.5-0.8-0.8-1.3-1.1l14.8 8.6c0.5 0.3 0.9 0.7 1.3 1.1" fill="#856B18"/>
+                        <path d="M732 443.6l-14.8-8.6 18.9 10.8 14.8 8.6z" fill="#9E7F1D"/>
+                        <path d="M713.1 395.9c-0.2-0.1-0.4-0.2-0.5-0.2-0.1-0.1-0.2-0.1-0.4-0.2-0.1 0-0.1-0.1-0.2-0.1s-0.1 0-0.2-0.1c-0.2-0.1-0.4-0.1-0.7-0.2h-0.1c-0.3 0-0.5-0.1-0.8-0.1H708.2c-0.2 0-0.4 0.1-0.5 0.1-0.2 0-0.4 0.1-0.6 0.1h-0.1c-0.1 0-0.3 0.1-0.4 0.1-0.4 0.1-0.7 0.2-1.1 0.4-0.1 0-0.2 0.1-0.3 0.1-0.2 0.1-0.4 0.1-0.5 0.2-0.1 0.1-0.3 0.1-0.4 0.2-0.5 0.2-0.9 0.5-1.4 0.7l-20 11.5c-0.6 0.4-1.3 0.7-1.9 1-0.1 0-0.1 0.1-0.2 0.1-0.4 0.2-0.9 0.3-1.3 0.4-0.2 0.1-0.4 0.1-0.6 0.1-0.1 0-0.3 0.1-0.4 0.1-0.3 0.1-0.6 0.1-0.9 0.1h-1.1c-0.3 0-0.5-0.1-0.8-0.2h-0.1c-0.3-0.1-0.5-0.2-0.8-0.4l14.8 8.6h0.1c0.2 0.1 0.3 0.2 0.5 0.2 0.1 0 0.2 0.1 0.2 0.1h0.2c0.2 0.1 0.4 0.1 0.5 0.1H692.4c0.3 0 0.5 0 0.8-0.1h0.1c0.1 0 0.3-0.1 0.4-0.1 0.2 0 0.3-0.1 0.5-0.1h0.1c0.4-0.1 0.8-0.3 1.3-0.4h0.1s0.1 0 0.1-0.1c0.6-0.3 1.3-0.6 1.9-1l20-11.5c0.5-0.3 0.9-0.5 1.4-0.7 0.1-0.1 0.3-0.1 0.4-0.2 0.3-0.1 0.5-0.2 0.8-0.3 0.4-0.1 0.8-0.3 1.1-0.4 0.2-0.1 0.4-0.1 0.5-0.2 0.2-0.1 0.4-0.1 0.6-0.1 0.2-0.1 0.5-0.1 0.7-0.1H724.7c0.4 0 0.7 0 1 0.1h0.1c0.3 0.1 0.6 0.1 0.9 0.2 0.1 0 0.1 0 0.2 0.1 0.3 0.1 0.6 0.3 0.9 0.4l-14.7-8.2zM595.9 616.9l-0.1-23c0-4-2.3-6.7-4.6-8l-14.8-8.6c2.3 1.4 4.6 4 4.6 8l9.9 5.7-9.9-5.7 0.1 23c0 2.9 0.6 5.3 1.6 7 0.6 1 1.4 1.8 2.3 2.3l14.8 8.6c-2.5-1.4-3.9-4.6-3.9-9.3z" fill="#C68620"/>
+                        <path d="M664.2 410c3.5-2 7.1-2.4 10-0.7l14.2 8.1c2.4 2.7 5.9 2 9.4 0l20-11.5c8.2-4.8 14.1-1.4 14.2 8.1l0.1 29.7 18.9 10.8c5.9 2 5.9 12.8-1.1 23.6l-14.1 24.4c-3.5 4.7-4.7 9.5-4.7 13.5l0.1 23c0 9.5-5.8 19.6-14.1 24.4l-20 11.5c-3.5 2-7.1 6.8-9.4 10.8L673.6 610c-2.9 5.1-6.4 8.8-10 10.8-3.5 2-7.1 2.4-10 0.7l-14.1-8.1c-2.4-2.7-5.9-2-9.4 0L610 625c-8.2 4.8-14.1 1.4-14.2-8.1l-0.1-23c0-4.1-2.4-6.8-4.7-8.1l-14.2-8.1c-5.9-3.4-5.9-12.8-0.1-23l14.1-25.7c3.5-4.7 4.7-9.5 4.7-13.5l-0.1-23c0-9.5 5.8-19.6 14.1-24.4l20-11.5c3.5-2 7.1-6.8 10.6-11.5l14.1-24.4c2.9-4.9 6.5-8.6 10-10.7z" fill="#FFCD2E"/>
+                        <path d="M691.9 456.3l1.9 4c-20.1 33.6-36.6 74.1-41.7 92.9l-30.4-19 7.7-11.8 17.6 6.1c7.1-14.3 23-43.6 44.9-72.2zM673.5 408.8l-14.2-8.1c-0.3-0.2-0.6-0.3-0.9-0.4 0 0-0.1 0-0.1-0.1-0.1 0-0.2-0.1-0.3-0.1-0.1-0.1-0.3-0.1-0.4-0.2-0.1 0-0.3-0.1-0.4-0.1-0.1 0-0.2 0-0.3-0.1h-0.2c-0.3-0.1-0.6-0.1-0.9-0.1h-2c-0.1 0-0.2 0-0.3 0.1-0.2 0-0.4 0.1-0.5 0.1-0.1 0-0.2 0-0.3 0.1-0.1 0-0.2 0.1-0.3 0.1l-0.9 0.3c-0.1 0-0.2 0.1-0.3 0.1-0.1 0-0.1 0.1-0.2 0.1-0.5 0.2-1.1 0.5-1.6 0.8-0.4 0.2-0.8 0.5-1.2 0.8-0.1 0.1-0.3 0.2-0.4 0.3-0.3 0.2-0.6 0.4-0.8 0.6-0.1 0.1-0.3 0.2-0.4 0.4-0.3 0.2-0.5 0.5-0.8 0.7l-0.4 0.4c-0.1 0.1-0.2 0.1-0.2 0.2-0.1 0.1-0.2 0.2-0.3 0.4-0.3 0.3-0.6 0.6-0.9 1l-0.3 0.3c-0.1 0.1-0.2 0.3-0.3 0.4-0.2 0.2-0.4 0.4-0.6 0.7-0.1 0.1-0.2 0.2-0.3 0.4-0.1 0.2-0.3 0.3-0.4 0.5-0.1 0.2-0.3 0.4-0.4 0.6-0.1 0.1-0.1 0.2-0.2 0.3-0.2 0.3-0.4 0.6-0.6 0.8-0.1 0.1-0.2 0.3-0.3 0.4l-0.1 0.1c-0.3 0.5-0.6 1-0.9 1.4 0 0.1-0.1 0.1-0.1 0.2l-14.1 24.4-2.7 3.6c-0.3 0.3-0.5 0.6-0.8 1-0.2 0.2-0.3 0.4-0.5 0.6-0.3 0.4-0.7 0.8-1 1.2l-0.3 0.3-0.1 0.1c-0.5 0.6-1.1 1.2-1.6 1.7l-0.5 0.5c-0.4 0.3-0.7 0.7-1.1 1-0.2 0.1-0.3 0.3-0.5 0.4-0.5 0.4-1 0.8-1.5 1.1l-20 11.5c-0.9 0.5-1.7 1.1-2.5 1.7-0.1 0.1-0.2 0.1-0.3 0.2-0.8 0.6-1.5 1.2-2.2 1.9l-0.2 0.2c-0.1 0.1-0.1 0.2-0.2 0.2-0.3 0.3-0.7 0.7-1 1.1l-0.3 0.3-0.1 0.1c-0.1 0.2-0.3 0.4-0.4 0.5-0.2 0.2-0.4 0.4-0.5 0.6-0.1 0.1-0.1 0.2-0.2 0.2-0.1 0.1-0.2 0.3-0.3 0.4-0.1 0.2-0.2 0.3-0.4 0.5-0.1 0.2-0.2 0.3-0.3 0.5-0.1 0.1-0.2 0.3-0.3 0.4-0.1 0.1-0.1 0.2-0.2 0.2-0.2 0.4-0.4 0.7-0.7 1.1v0.1c0 0.1-0.1 0.1-0.1 0.2-0.2 0.3-0.3 0.5-0.4 0.8-0.1 0.2-0.2 0.3-0.2 0.5-0.1 0.1-0.1 0.2-0.2 0.4 0 0.1-0.1 0.2-0.1 0.3-0.2 0.4-0.4 0.7-0.5 1.1v0.1c0 0.1-0.1 0.2-0.1 0.3-0.1 0.3-0.2 0.6-0.3 0.8-0.1 0.1-0.1 0.3-0.2 0.5s-0.1 0.3-0.2 0.5c0 0.1-0.1 0.2-0.1 0.4l-0.3 0.9c0 0.1-0.1 0.3-0.1 0.4v0.1c-0.1 0.4-0.2 0.7-0.3 1.1 0 0.2-0.1 0.3-0.1 0.5v0.1c0 0.1 0 0.2-0.1 0.3-0.1 0.5-0.2 1.1-0.3 1.6v0.5c-0.1 1-0.2 1.9-0.2 2.9l0.1 23c0 0.8-0.1 1.6-0.2 2.5v0.4c0 0.3-0.1 0.6-0.2 0.9 0 0.3-0.1 0.5-0.2 0.8 0 0.1-0.1 0.3-0.1 0.4l-0.3 1.2c0 0.1-0.1 0.2-0.1 0.3-0.2 0.5-0.3 1-0.6 1.5 0 0.1-0.1 0.1-0.1 0.2-0.2 0.5-0.5 1-0.7 1.5 0 0.1-0.1 0.1-0.1 0.2-0.3 0.5-0.6 1.1-0.9 1.6 0 0.1-0.1 0.1-0.1 0.2-0.4 0.6-0.7 1.1-1.2 1.7L562 546.2c-0.2 0.4-0.5 0.9-0.7 1.3-0.1 0.1-0.1 0.3-0.2 0.4-0.1 0.2-0.2 0.3-0.3 0.5-0.1 0.2-0.2 0.3-0.3 0.5-0.1 0.3-0.2 0.5-0.4 0.8-0.1 0.1-0.1 0.3-0.2 0.4 0 0.1-0.1 0.1-0.1 0.2-0.2 0.5-0.4 0.9-0.6 1.3v0.1c0 0.1-0.1 0.3-0.1 0.4l-0.3 0.9c0 0.1-0.1 0.3-0.1 0.4-0.1 0.2-0.1 0.4-0.2 0.6 0 0.2-0.1 0.3-0.1 0.5-0.1 0.2-0.1 0.4-0.1 0.5-0.1 0.2-0.1 0.5-0.2 0.7 0 0.1-0.1 0.2-0.1 0.3 0 0.2-0.1 0.3-0.1 0.5-0.1 0.3-0.1 0.7-0.2 1 0 0.1 0 0.2-0.1 0.3v0.4c0 0.4-0.1 0.8-0.1 1.1v2.3c0 0.5 0.1 1.1 0.2 1.5v0.1c0.1 0.5 0.2 0.9 0.4 1.3 0.1 0.1 0.1 0.3 0.2 0.4 0.1 0.3 0.3 0.6 0.4 0.9 0.1 0.2 0.2 0.3 0.3 0.4 0.2 0.3 0.3 0.5 0.5 0.7 0.1 0.1 0.2 0.3 0.3 0.4 0.2 0.2 0.4 0.5 0.7 0.7l0.3 0.3c0.4 0.3 0.7 0.6 1.1 0.8l14.8 8.6c-0.4-0.2-0.8-0.5-1.1-0.8l-0.3-0.3-0.7-0.7c-0.1-0.1-0.2-0.3-0.3-0.4-0.2-0.2-0.3-0.5-0.5-0.7-0.1-0.1-0.2-0.3-0.3-0.4-0.1-0.3-0.3-0.6-0.4-0.9-0.1-0.1-0.1-0.3-0.2-0.4-0.1-0.4-0.3-0.8-0.4-1.3v-0.1c-0.1-0.5-0.2-1-0.2-1.5v-0.5-1.2-0.6c0-0.4 0-0.8 0.1-1.1 0-0.2 0.1-0.5 0.1-0.7 0-0.3 0.1-0.7 0.2-1 0.1-0.3 0.1-0.5 0.2-0.8 0.1-0.2 0.1-0.5 0.2-0.7 0.1-0.3 0.2-0.7 0.3-1 0.1-0.2 0.1-0.4 0.2-0.6 0.1-0.4 0.3-0.8 0.4-1.2 0-0.1 0.1-0.2 0.1-0.4 0.2-0.5 0.4-1.1 0.7-1.6 0.1-0.1 0.1-0.3 0.2-0.4 0.2-0.4 0.4-0.9 0.6-1.3 0.1-0.2 0.2-0.3 0.3-0.5 0.3-0.6 0.6-1.1 0.9-1.7l-9.9-5.7 9.9 5.7 14.1-25.7c0.2-0.2 0.3-0.4 0.4-0.6l0.6-0.9c0-0.1 0.1-0.1 0.1-0.2s0.1-0.1 0.1-0.2c0.1-0.2 0.2-0.4 0.3-0.5 0.2-0.3 0.3-0.6 0.5-0.8 0-0.1 0.1-0.1 0.1-0.2s0.1-0.1 0.1-0.2c0.1-0.1 0.2-0.3 0.2-0.4 0.1-0.3 0.3-0.6 0.4-0.8 0-0.1 0.1-0.2 0.1-0.3 0-0.1 0.1-0.1 0.1-0.2 0.1-0.1 0.1-0.3 0.2-0.4l0.3-0.9c0-0.1 0-0.1 0.1-0.2 0-0.1 0.1-0.2 0.1-0.3 0.1-0.2 0.1-0.4 0.2-0.6 0.1-0.2 0.1-0.4 0.2-0.6 0-0.1 0.1-0.3 0.1-0.4v-0.2c0-0.2 0.1-0.4 0.1-0.6 0.1-0.3 0.1-0.6 0.2-0.9v-0.2-0.3c0.1-0.9 0.2-1.7 0.2-2.5l-0.1-23c0-1 0.1-1.9 0.2-2.9v-0.5c0.1-0.5 0.2-1.1 0.3-1.6 0-0.1 0-0.3 0.1-0.4 0-0.2 0.1-0.3 0.1-0.5l0.3-1.2c0-0.1 0.1-0.3 0.1-0.4 0.1-0.4 0.2-0.8 0.4-1.2 0.1-0.2 0.1-0.3 0.2-0.5 0.2-0.4 0.3-0.9 0.5-1.3 0-0.1 0.1-0.2 0.1-0.2 0.2-0.5 0.4-1 0.7-1.5 0.1-0.1 0.1-0.2 0.2-0.3 0.2-0.4 0.5-0.9 0.7-1.3 0-0.1 0.1-0.1 0.1-0.2 0.3-0.5 0.6-0.9 0.9-1.4 0.1-0.1 0.2-0.3 0.3-0.4 0.2-0.3 0.5-0.7 0.7-1 0.1-0.1 0.2-0.3 0.3-0.4 0.2-0.3 0.5-0.6 0.7-0.9 0.1-0.2 0.3-0.4 0.4-0.5 0.1-0.2 0.3-0.3 0.4-0.5 0.3-0.4 0.7-0.7 1-1.1l0.4-0.4c0.7-0.7 1.4-1.3 2.2-1.9 0.1-0.1 0.2-0.1 0.3-0.2 0.8-0.6 1.6-1.2 2.5-1.7l20-11.5c0.5-0.3 1-0.7 1.5-1.1 0.2-0.1 0.3-0.3 0.5-0.4 0.4-0.3 0.7-0.6 1.1-1 0.1-0.1 0.2-0.1 0.3-0.2l0.2-0.2c0.5-0.5 1.1-1.1 1.6-1.7l0.1-0.1c0.1-0.1 0.2-0.3 0.3-0.4 0.3-0.4 0.6-0.7 1-1.1 0.2-0.2 0.3-0.4 0.5-0.6 0.2-0.3 0.5-0.6 0.7-0.9 0 0 0-0.1 0.1-0.1l2.7-3.6 14.1-24.4c0.3-0.6 0.7-1.2 1.1-1.7 0.1-0.1 0.2-0.3 0.3-0.4 0.3-0.4 0.5-0.8 0.8-1.1 0.1-0.2 0.3-0.4 0.4-0.6 0.2-0.3 0.5-0.6 0.7-0.9 0.2-0.2 0.4-0.5 0.6-0.7 0.2-0.2 0.4-0.5 0.6-0.7 0.3-0.3 0.6-0.7 0.9-1l0.6-0.6 0.4-0.4c0.3-0.2 0.5-0.5 0.8-0.7l0.4-0.4c0.3-0.2 0.6-0.4 0.8-0.6 0.1-0.1 0.3-0.2 0.4-0.3 0.4-0.3 0.8-0.5 1.2-0.8 0.5-0.3 1.1-0.6 1.6-0.8 0.2-0.1 0.4-0.1 0.5-0.2l0.9-0.3c0.2-0.1 0.4-0.1 0.6-0.2 0.2 0 0.4-0.1 0.5-0.1 0.3 0 0.5-0.1 0.8-0.1h1.5c0.4 0 0.7 0.1 1.1 0.1 0.1 0 0.2 0 0.3 0.1 0.3 0.1 0.5 0.1 0.8 0.2 0.1 0 0.2 0.1 0.3 0.1 0.4 0.1 0.7 0.3 1 0.5l14.2 8.1-14.9-8.8z" fill="#C68620"/>
+                        <path d="M661.3 534.3c0.1-0.2 0.2-0.3 0.3-0.5 0.5-1 1-1.9 1.6-3 0.3-0.6 0.7-1.3 1-1.9 0.3-0.6 0.7-1.2 1-1.9 0.4-0.7 0.8-1.4 1.1-2.1 0.4-0.7 0.7-1.3 1.1-2 0.4-0.7 0.8-1.4 1.2-2.2l1.2-2.1c0.4-0.7 0.9-1.5 1.3-2.3 0.4-0.7 0.8-1.5 1.3-2.2 0.3-0.5 0.5-0.9 0.8-1.4l1.8-3c0.3-0.6 0.7-1.1 1-1.7 0.6-0.9 1.1-1.9 1.7-2.8 0.4-0.6 0.8-1.2 1.2-1.9 0.6-0.9 1.2-1.9 1.8-2.8 0.4-0.6 0.8-1.3 1.2-1.9 0.4-0.7 0.8-1.3 1.3-2 1.4-2.2 2.8-4.4 4.3-6.6 0.2-0.2 0.3-0.4 0.4-0.7 1.6-2.4 3.2-4.8 4.9-7.2 0.5-0.6 0.9-1.3 1.4-1.9 1-1.4 2-2.9 3.1-4.3 0.5-0.7 0.9-1.3 1.4-2 1.5-2.1 3-4.1 4.6-6.2l-10.8-6.3c-1.6 2.1-3.1 4.1-4.6 6.2-0.5 0.7-0.9 1.3-1.4 1.9-1.1 1.4-2.1 2.9-3.1 4.3-0.3 0.4-0.5 0.7-0.8 1.1l-0.6 0.9c-1.7 2.4-3.3 4.8-4.9 7.2-0.2 0.2-0.3 0.4-0.4 0.7-1.5 2.2-2.9 4.4-4.3 6.6l-0.6 0.9c-0.2 0.4-0.5 0.7-0.7 1.1-0.4 0.7-0.8 1.3-1.2 1.9-0.6 1-1.2 1.9-1.8 2.8-0.4 0.6-0.8 1.3-1.2 1.9-0.6 1-1.2 1.9-1.7 2.8-0.3 0.6-0.7 1.1-1 1.7l-1.8 3c-0.3 0.5-0.6 0.9-0.8 1.4-0.1 0.1-0.1 0.2-0.2 0.3-0.4 0.6-0.7 1.3-1.1 1.9-0.5 0.8-0.9 1.6-1.3 2.3l-1.2 2.1c-0.4 0.7-0.8 1.5-1.2 2.2-0.4 0.7-0.7 1.3-1.1 2-0.4 0.7-0.8 1.4-1.1 2.1-0.3 0.6-0.7 1.2-1 1.8-0.4 0.7-0.7 1.3-1 1.9-0.1 0.1-0.1 0.2-0.2 0.3-0.5 0.9-0.9 1.8-1.4 2.6-0.1 0.2-0.2 0.4-0.3 0.5l-1.2 2.4c-0.1 0.2-0.2 0.5-0.4 0.7-0.4 0.9-0.9 1.7-1.3 2.5l-17.6-6.1-7.7 11.8 10.8 6.3 7.7-11.8 17.6 6.1c0.4-0.8 0.8-1.6 1.3-2.5 0.1-0.2 0.2-0.5 0.4-0.7 0.4-0.6 0.8-1.4 1.2-2.2z" fill="#E8CFAC"/>
+                        <path d="M663.5 564.7l-10.7-6.3-30.4-19 10.7 6.2z" fill="#808080"/>
+                        <path d="M703.4 467.8l1.9 4c-20.1 33.6-36.6 74.1-41.7 92.9l-30.4-19 7.7-11.8 17.6 6.1c7.1-14.3 23-43.6 44.9-72.2z" fill="#FFFFFF"/>
+                    </svg>
+                </div>
 
-  <div id="ordersList"></div>
+                <div class="title-box">
+                    <div class="title">
+                        سین‌یار <span class="sep">|</span> 
+                        خدمات شبکه‌های <span class="bold">اجتماعی</span>
+                    </div>
+                </div>
 
-  <div class="empty-orders" id="emptyOrders" style="display:none;">
-    <div class="empty-icon">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3.17004 7.43994L12 12.5499L20.77 7.46991" stroke="#d1d5db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M12 21.6099V12.5399" stroke="#d1d5db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M21.61 12.83V9.17C21.61 7.79 20.62 6.11002 19.41 5.44002L14.07 2.48C12.93 1.84 11.07 1.84 9.92999 2.48L4.59 5.44002C3.38 6.11002 2.39001 7.79 2.39001 9.17V14.83C2.39001 16.21 3.38 17.89 4.59 18.56L9.92999 21.52C10.5 21.84 11.25 22 12 22C12.75 22 13.5 21.84 14.07 21.52" stroke="#d1d5db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M19.2 21.4C20.9673 21.4 22.4 19.9673 22.4 18.2C22.4 16.4327 20.9673 15 19.2 15C17.4327 15 16 16.4327 16 18.2C16 19.9673 17.4327 21.4 19.2 21.4Z" stroke="#d1d5db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M23 22L22 21" stroke="#d1d5db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <h3>هیچ سفارشی یافت نشد</h3>
-    <p>سفارشی با این وضعیت وجود ندارد</p>
-  </div>
+                <div class="description">
+                    <strong>سین‌یار</strong> | تجربه‌ای تازه از خدمات هوشمند <span class="highlight-text">شبکه‌های اجتماعی</span> است؛ نرم‌افزاری برای گسترش <strong>کانال‌ها</strong> و <strong>پیج‌ها</strong> که به سرعت با کیفیت بالا همیشه اولین همه باشد. <strong>سین‌یار</strong> با مدیریت کانال‌ها و افزایش تعامل، از هدر رفتن فرصت‌های فروش جلوگیری می‌کند.
+                </div>
 
-</div>
+            </div>
 
-<script>
-// ===== دیتای نمونه با نوع سفارش =====
-const ordersData = [
-  { id: '#ORD-1024', type: 'view', typeName: 'بازدید پست', quantity: 45, status: 'active', statusText: 'در حال ارسال', date: '۱۴۰۴/۰۴/۱۵' },
-  { id: '#ORD-1031', type: 'member_channel', typeName: 'ممبر کانال', quantity: 200, status: 'active', statusText: 'در انتظار تایید', date: '۱۴۰۴/۰۴/۱۴' },
-  { id: '#ORD-0987', type: 'member_group', typeName: 'ممبر گروه', quantity: 30, status: 'completed', statusText: 'تکمیل شده', date: '۱۴۰۴/۰۴/۱۲' },
-  { id: '#ORD-1012', type: 'like', typeName: 'لایک', quantity: 150, status: 'completed', statusText: 'تحویل شده', date: '۱۴۰۴/۰۴/۱۰' },
-  { id: '#ORD-1045', type: 'reaction', typeName: 'ری‌اکشن', quantity: 20, status: 'canceled', statusText: 'لغو شده', date: '۱۴۰۴/۰۴/۰۸' },
-  { id: '#ORD-1039', type: 'stars', typeName: 'استارز', quantity: 100, status: 'canceled', statusText: 'مرجوع شده', date: '۱۴۰۴/۰۴/۰۷' }
-];
+            <div class="buttons">
+                <button class="btn btn-primary btn-first" onclick="showToast('🚀 شروع شد!')">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.5 6.5H17.5M17.5 6.5H20.5M17.5 6.5V9.5M17.5 6.5V3.5" stroke="#6c5ce7" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M2.55078 15.5C2.61472 14.8499 2.75923 14.4124 3.08582 14.0858C3.67161 13.5 4.61442 13.5 6.50004 13.5C8.38565 13.5 9.32846 13.5 9.91425 14.0858C10.5 14.6716 10.5 15.6144 10.5 17.5C10.5 19.3856 10.5 20.3284 9.91425 20.9142C9.32846 21.5 8.38565 21.5 6.50004 21.5C4.61442 21.5 3.67161 21.5 3.08582 20.9142C2.77645 20.6048 2.63047 20.1959 2.56158 19.6011" stroke="#6c5ce7" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M2.5 6.5C2.5 4.61438 2.5 3.67157 3.08579 3.08579C3.67157 2.5 4.61438 2.5 6.5 2.5C8.38562 2.5 9.32843 2.5 9.91421 3.08579C10.5 3.67157 10.5 4.61438 10.5 6.5C10.5 8.38562 10.5 9.32843 9.91421 9.91421C9.32843 10.5 8.38562 10.5 6.5 10.5C4.61438 10.5 3.67157 10.5 3.08579 9.91421C2.5 9.32843 2.5 8.38562 2.5 6.5Z" stroke="#6c5ce7" stroke-width="1.5"/>
+                        <path d="M13.5 17.5C13.5 15.6144 13.5 14.6716 14.0858 14.0858C14.6716 13.5 15.6144 13.5 17.5 13.5C19.3856 13.5 20.3284 13.5 20.9142 14.0858C21.5 14.6716 21.5 15.6144 21.5 17.5C21.5 19.3856 21.5 20.3284 20.9142 20.9142C20.3284 21.5 19.3856 21.5 17.5 21.5C15.6144 21.5 14.6716 21.5 14.0858 20.9142C13.5 20.3284 13.5 19.3856 13.5 17.5Z" stroke="#6c5ce7" stroke-width="1.5"/>
+                    </svg>
+                    شروع کنید
+                </button>
 
-// ===== آیکون‌های وضعیت =====
-const statusIcons = {
-  active: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 10.5778 21.7031 9.22492 21.1679 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="0.5 3.5"/><path d="M22 12C22 10.1786 21.513 8.47087 20.6622 7M12 2C13.8214 2 15.5291 2.48697 17 3.33782" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 9V13H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-  completed: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 7V6.37006C21 5.17705 21 4.58055 20.842 4.09946C20.5425 3.18719 19.8468 2.47096 18.9606 2.16261C18.4933 2 17.9139 2 16.755 2H7.24502C6.08614 2 5.50671 2 5.03939 2.16261C4.15322 2.47096 3.45748 3.18719 3.15795 4.09946C3 4.58055 3 5.17705 3 6.37006V15M21 11V20.3742C21 21.2324 20.015 21.6878 19.3919 21.1176C19.0258 20.7826 18.4742 20.7826 18.1081 21.1176L17.625 21.5597C16.9834 22.1468 16.0166 22.1468 15.375 21.5597C14.7334 20.9726 13.7666 20.9726 13.125 21.5597C12.4834 22.1468 11.5166 22.1468 10.875 21.5597C10.2334 20.9726 9.26659 20.9726 8.625 21.5597C7.98341 22.1468 7.01659 22.1468 6.375 21.5597L5.8919 21.1176C5.52583 20.7826 4.97417 20.7826 4.6081 21.1176C3.985 21.6878 3 21.2324 3 20.3742V19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 10.4L10.9286 12L14.5 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 15.5H9M16.5 15.5H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
-  canceled: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`
-};
+                <button class="btn btn-secondary btn-second" onclick="showToast('📂 دسته‌بندی‌ها')">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 21H6C4.11438 21 3.17157 21 2.58579 20.4142C2 19.8284 2 18.8856 2 17C2 15.1144 2 14.1716 2.58579 13.5858C3.17157 13 4.11438 13 6 13H18C19.8856 13 20.8284 13 21.4142 13.5858C22 14.1716 22 15.1144 22 17C22 18.8856 22 19.8284 21.4142 20.4142C20.8284 21 19.8856 21 18 21H17" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M11 2H18C19.8856 2 20.8284 2 21.4142 2.58579C22 3.17157 22 4.11438 22 6C22 7.88562 22 8.82843 21.4142 9.41421C20.8284 10 19.8856 10 18 10H6C4.11438 10 3.17157 10 2.58579 9.41421C2 8.82843 2 7.88562 2 6C2 4.11438 2 3.17157 2.58579 2.58579C3.17157 2 4.11438 2 6 2H7" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M11 6H18" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M6 6H8" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M11 17H18" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M6 17H8" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    دسته‌بندی‌ها
+                </button>
 
-// ===== آیکون لایک و ریکشن یکی هست =====
-const reactionIcon = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5.50063L11.4596 6.02073C11.463 6.02421 11.4664 6.02765 11.4698 6.03106L12 5.50063ZM8.96173 18.9109L8.49742 19.4999L8.96173 18.9109ZM15.0383 18.9109L14.574 18.3219L15.0383 18.9109ZM7.00061 16.4209C6.68078 16.1577 6.20813 16.2036 5.94491 16.5234C5.68169 16.8432 5.72758 17.3159 6.04741 17.5791L7.00061 16.4209ZM2.34199 13.4115C2.54074 13.7749 2.99647 13.9084 3.35988 13.7096C3.7233 13.5108 3.85677 13.0551 3.65801 12.6917L2.34199 13.4115ZM13.4698 8.03034C13.7627 8.32318 14.2376 8.32309 14.5304 8.03014C14.8233 7.7372 14.8232 7.26232 14.5302 6.96948L13.4698 8.03034ZM2.75 9.1371C2.75 6.98623 3.96537 5.18252 5.62436 4.42419C7.23607 3.68748 9.40166 3.88258 11.4596 6.02073L12.5404 4.98053C10.0985 2.44352 7.26409 2.02539 5.00076 3.05996C2.78471 4.07292 1.25 6.42503 1.25 9.1371H2.75ZM8.49742 19.4999C9.00965 19.9037 9.55955 20.3343 10.1168 20.6599C10.6739 20.9854 11.3096 21.25 12 21.25V19.75C11.6904 19.75 11.3261 19.6293 10.8736 19.3648C10.4213 19.1005 9.95208 18.7366 9.42605 18.3219L8.49742 19.4999ZM15.5026 19.4999C16.9292 18.3752 18.7528 17.0866 20.1833 15.4758C21.6395 13.8361 22.75 11.8026 22.75 9.1371H21.25C21.25 11.3345 20.3508 13.0282 19.0617 14.4798C17.7469 15.9603 16.0896 17.1271 14.574 18.3219L15.5026 19.4999ZM22.75 9.1371C22.75 6.42503 21.2153 4.07292 18.9992 3.05996C16.7359 2.02539 13.9015 2.44352 11.4596 4.98053L12.5404 6.02073C14.5983 3.88258 16.7639 3.68748 18.3756 4.42419C20.0346 5.18252 21.25 6.98623 21.25 9.1371H22.75ZM14.574 18.3219C14.0479 18.7366 13.5787 19.1005 13.1264 19.3648C12.6739 19.6293 12.3096 19.75 12 19.75V21.25C12.6904 21.25 13.3261 20.9854 13.8832 20.6599C14.4405 20.3343 14.9903 19.9037 15.5026 19.4999L14.574 18.3219ZM9.42605 18.3219C8.63014 17.6945 7.82129 17.0963 7.00061 16.4209L6.04741 17.5791C6.87768 18.2624 7.75472 18.9144 8.49742 19.4999L9.42605 18.3219ZM3.65801 12.6917C3.0968 11.6656 2.75 10.5033 2.75 9.1371H1.25C1.25 10.7746 1.66995 12.1827 2.34199 13.4115L3.65801 12.6917ZM11.4698 6.03106L13.4698 8.03034L14.5302 6.96948L12.5302 4.97021L11.4698 6.03106Z" fill="#ffffff"/></svg>`;
+                <button class="btn btn-secondary btn-second" onclick="showToast('🎧 پشتیبانی')">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 17V12C22 10.1786 21.513 8.47087 20.6622 7M2 18V12C2 6.47715 6.47715 2 12 2C13.8214 2 15.5291 2.48697 17 3.33782" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M8 15.1871C8 14.6088 8 14.3196 7.93097 14.0899C7.77135 13.5588 7.35457 13.156 6.83579 13.0313C6.61143 12.9775 6.33578 13.0002 5.78447 13.0457C4.82772 13.1247 4.34935 13.1642 3.95934 13.3151C3.06004 13.6629 2.3739 14.4394 2.1131 15.4044C2 15.8229 2 16.3248 2 17.3285V17.514C2 18.5431 2 19.0577 2.12305 19.493C2.36454 20.3475 2.942 21.0543 3.71133 21.437C4.10333 21.632 4.58932 21.7123 5.56129 21.8728C6.20632 21.9793 6.52883 22.0326 6.78984 21.9788C7.30414 21.8729 7.72826 21.4938 7.90852 20.9791C8 20.7178 8 20.3763 8 19.6934V15.1871Z" stroke="#444" stroke-width="1.5"/>
+                        <path d="M16 15.1871C16 14.6088 16 14.3196 16.069 14.0899C16.2286 13.5588 16.6454 13.156 17.1642 13.0313C17.3886 12.9775 17.6642 13.0002 18.2155 13.0457C19.1723 13.1247 19.6506 13.1642 20.0407 13.3151C20.94 13.6629 21.6261 14.4394 21.8869 15.4044C22 15.8229 22 16.3248 22 17.3285V17.514C22 18.5431 22 19.0577 21.877 19.493C21.6355 20.3475 21.058 21.0543 20.2887 21.437C19.8967 21.632 19.4107 21.7123 18.4387 21.8728C17.7937 21.9793 17.4712 22.0326 17.2102 21.9788C16.6959 21.8729 16.2717 21.4938 16.0915 20.9791C16 20.7178 16 20.3763 16 19.6934V15.1871Z" stroke="#444" stroke-width="1.5"/>
+                        <path d="M12 6.5L12 11.5" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M15 8L15 10" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M9 8L9 10" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    پشتیبانی
+                </button>
 
-// ===== آیکون‌های نوع سفارش =====
-const typeIcons = {
-  view: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 4.45962C9.91153 4.16968 10.9104 4 12 4C16.1819 4 19.028 6.49956 20.7251 8.70433C21.575 9.80853 22 10.3606 22 12C22 13.6394 21.575 14.1915 20.7251 15.2957C19.028 17.5004 16.1819 20 12 20C7.81811 20 4.97196 17.5004 3.27489 15.2957C2.42496 14.1915 2 13.6394 2 12C2 10.3606 2.42496 9.80853 3.27489 8.70433C3.75612 8.07914 4.32973 7.43025 5 6.82137" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/><path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="#ffffff" stroke-width="1.5"/></svg>`,
-  member_channel: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="6" r="4" stroke="#ffffff" stroke-width="1.5"/><path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/><path d="M17.9975 18C18 17.8358 18 17.669 18 17.5C18 15.0147 14.4183 13 10 13C5.58172 13 2 15.0147 2 17.5C2 19.9853 2 22 10 22C12.231 22 13.8398 21.8433 15 21.5634" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/></svg>`,
-  member_group: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="6" r="4" stroke="#ffffff" stroke-width="1.5"/><path d="M18 9C19.6569 9 21 7.88071 21 6.5C21 5.11929 19.6569 4 18 4" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/><path d="M6 9C4.34315 9 3 7.88071 3 6.5C3 5.11929 4.34315 4 6 4" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/><path d="M17.1973 15C17.7078 15.5883 18 16.2714 18 17C18 19.2091 15.3137 21 12 21C8.68629 21 6 19.2091 6 17C6 14.7909 8.68629 13 12 13C12.3407 13 12.6748 13.0189 13 13.0553" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/><path d="M20 19C21.7542 18.6153 23 17.6411 23 16.5C23 15.3589 21.7542 14.3847 20 14" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/><path d="M4 19C2.24575 18.6153 1 17.6411 1 16.5C1 15.3589 2.24575 14.3847 4 14" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/></svg>`,
-  like: reactionIcon,
-  reaction: reactionIcon,
-  stars: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.36655 10.2421C4.28985 8.4221 3.75151 7.51211 4.11106 6.78804C4.4706 6.06397 5.48992 6.00535 7.52857 5.88812L8.05599 5.85779C8.63531 5.82448 8.92497 5.80782 9.17756 5.67305C9.43014 5.53828 9.61705 5.30066 9.99088 4.82542L10.3312 4.39274C11.6467 2.72034 12.3045 1.88413 13.0606 2.01293C13.8167 2.14173 14.1705 3.15023 14.8779 5.16723M5.80455 13.5087C5.25206 15.5982 4.97582 16.6429 5.50972 17.2192C6.04363 17.7955 7.0341 17.5217 9.01504 16.9741L9.99088 16.5M17.048 7.50967C18.9378 8.29605 19.8826 8.68925 19.9904 9.49292C20.0823 10.1786 19.513 10.7756 18.3493 11.7831" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/><path d="M16.2387 19.57C17.7244 19.9565 18.4673 20.1498 18.8677 19.743C19.2681 19.3362 19.061 18.5987 18.6466 17.1238L18.5394 16.7422C18.4216 16.3231 18.3628 16.1135 18.3924 15.9057C18.422 15.6979 18.5367 15.5154 18.7662 15.1503L18.9751 14.818C19.7826 13.5332 20.1864 12.8909 19.9167 12.3798C19.647 11.8687 18.8826 11.8273 17.3536 11.7446L16.958 11.7231C16.5235 11.6996 16.3063 11.6879 16.1168 11.5927C15.9274 11.4976 15.7872 11.3299 15.5068 10.9944L15.2516 10.689C14.265 9.50847 13.7716 8.91821 13.2045 9.00913C12.6375 9.10004 12.3722 9.81193 11.8416 11.2357L11.7043 11.604C11.5535 12.0086 11.4781 12.2109 11.3314 12.3599C11.1848 12.509 10.9834 12.5878 10.5806 12.7456L10.214 12.8892C8.79667 13.4443 8.08803 13.7218 8.00721 14.2891C7.92639 14.8564 8.52692 15.3378 9.72797 16.3004L10.0387 16.5495C10.38 16.8231 10.5507 16.9599 10.6494 17.1471C10.7482 17.3343 10.7639 17.5508 10.7954 17.9837L10.824 18.3779C10.9347 19.9015 10.9901 20.6633 11.5072 20.923C12.0244 21.1827 12.6608 20.7683 13.9337 19.9395" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/></svg>`
-};
+                <button class="btn btn-outline-light btn-third" onclick="showToast('👤 حساب من')">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="9" r="3" stroke="#666" stroke-width="1.5"/>
+                        <path d="M17.9691 20C17.81 17.1085 16.9247 15 11.9999 15C7.07521 15 6.18991 17.1085 6.03076 20" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    حساب من
+                </button>
 
-function renderOrders(filter = 'all', search = '') {
-  const container = document.getElementById('ordersList');
-  const empty = document.getElementById('emptyOrders');
-  let filtered = ordersData;
-  if (filter !== 'all') filtered = filtered.filter(order => order.status === filter);
-  if (search.trim()) {
-    const q = search.trim().toLowerCase();
-    filtered = filtered.filter(order => order.id.toLowerCase().includes(q) || order.typeName.includes(q) || order.date.includes(q));
-  }
-  if (filtered.length === 0) { container.innerHTML = ''; empty.style.display = 'flex'; return; }
-  empty.style.display = 'none';
-  container.innerHTML = '';
-  filtered.forEach(order => {
-    const card = document.createElement('div');
-    card.className = 'order-card';
-    const typeIcon = typeIcons[order.type] || typeIcons.view;
-    card.innerHTML = `
-      <div class="order-card-top">
-        <div class="order-id">شناسه <span>${order.id.replace('#', '')}</span></div>
-        <div class="order-status ${order.status}">${statusIcons[order.status]}${order.statusText}</div>
-      </div>
-      <div class="order-card-middle">
-        <div class="order-product">
-          <div class="order-product-icon">${typeIcon}</div>
-          <div class="order-product-info">
-            <span class="order-product-name">${order.typeName}</span>
-            <span class="order-product-desc">${order.quantity.toLocaleString()} عدد</span>
-          </div>
+                <button class="btn btn-outline-light btn-third" onclick="showToast('📋 قوانین')">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 17.9983C4.82497 17.9862 3.64706 17.8897 2.87868 17.1213C2 16.2426 2 14.8284 2 12L2 8C2 5.17157 2 3.75736 2.87868 2.87868C3.75736 2 5.17157 2 8 2L16 2C18.8284 2 20.2426 2 21.1213 2.87868C21.6112 3.36857 21.828 4.02491 21.9239 5M16.5 17.9983L17.3197 17.9957C19.2921 17.9748 20.3915 17.8512 21.1213 17.1213C22 16.2426 22 14.8284 22 12V9" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M9 6L15 6" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M7 9.5H9M17 9.5H12.5" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M10.8907 13.9454C11.53 13.4007 12.4702 13.4007 13.1094 13.9454C13.3833 14.1789 13.7239 14.32 14.0827 14.3486C14.9199 14.4154 15.5847 15.0802 15.6515 15.9174C15.6802 16.2762 15.8212 16.6168 16.0547 16.8907C16.5994 17.53 16.5994 18.4702 16.0547 19.1094C15.8212 19.3833 15.6802 19.7239 15.6515 20.0827C15.5847 20.9199 14.9199 21.5847 14.0827 21.6515C13.7239 21.6802 13.3833 21.8212 13.1094 22.0547C12.4702 22.5994 11.53 22.5994 10.8907 22.0547C10.6168 21.8212 10.2762 21.6802 9.91743 21.6515C9.08021 21.5847 8.41539 20.9199 8.34858 20.0827C8.31995 19.7239 8.17888 19.3833 7.94543 19.1094C7.40068 18.4702 7.40068 17.53 7.94543 16.8907C8.17888 16.6168 8.31995 16.2762 8.34858 15.9174C8.4154 15.0802 9.08021 14.4154 9.91743 14.3486C10.2762 14.32 10.6168 14.1789 10.8907 13.9454Z" stroke="#666" stroke-width="1.5"/>
+                        <path d="M10.5 18.2L11.3571 19L13.5 17" stroke="#666" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    قوانین
+                </button>
+
+            </div>
+
         </div>
-        <div class="order-stats"><div class="stat-item"><span class="stat-value">${order.quantity.toLocaleString()}</span><span class="stat-label">تعداد</span></div></div>
-      </div>
-      <div class="order-card-bottom">
-        <div class="order-date">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H14C17.7712 4 19.6569 4 20.8284 5.17157C22 6.34315 22 8.22876 22 12V14C22 17.7712 22 19.6569 20.8284 20.8284C20.1752 21.4816 19.3001 21.7706 18 21.8985" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M7 4V2.5" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M17 4V2.5" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M21.5 9H16.625H10.75M2 9H5.875" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M18 17C18 17.5523 17.5523 18 17 18C16.4477 18 16 17.5523 16 17C16 16.4477 16.4477 16 17 16C17.5523 16 18 16.4477 18 17Z" fill="#9ca3af"/>
-            <path d="M18 13C18 13.5523 17.5523 14 17 14C16.4477 14 16 13.5523 16 13C16 12.4477 16.4477 12 17 12C17.5523 12 18 12.4477 18 13Z" fill="#9ca3af"/>
-            <path d="M13 17C13 17.5523 12.5523 18 12 18C11.4477 18 11 17.5523 11 17C11 16.4477 11.4477 16 12 16C12.5523 16 13 16.4477 13 17Z" fill="#9ca3af"/>
-            <path d="M13 13C13 13.5523 12.5523 14 12 14C11.4477 14 11 13.5523 11 13C11 12.4477 11.4477 12 12 12C12.5523 12 13 12.4477 13 13Z" fill="#9ca3af"/>
-            <path d="M8 17C8 17.5523 7.55228 18 7 18C6.44772 18 6 17.5523 6 17C6 16.4477 6.44772 16 7 16C7.55228 16 8 16.4477 8 17Z" fill="#9ca3af"/>
-            <path d="M8 13C8 13.5523 7.55228 14 7 14C6.44772 14 6 13.5523 6 13C6 12.4477 6.44772 12 7 12C7.55228 12 8 12.4477 8 13Z" fill="#9ca3af"/>
-          </svg>
-          ${order.date}
-        </div>
-        <div class="order-rakt">
-          <span class="rakt-icon">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M22 12C22 12 21.0071 12.8907 19.0212 13.6851L16.2127 14.8085C14.2268 15.6028 13.2339 16 12 16C10.7661 16 9.77318 15.6028 7.7873 14.8085L4.97883 13.6851C2.99294 12.8907 2 12 2 12" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M2 16C2 16 2.99294 16.8907 4.97883 17.6851L7.7873 18.8085C9.77318 19.6028 10.7661 20 12 20C12.9539 20 13.7639 19.7626 15 19.2878M19.0212 17.6851C21.0071 16.8907 22 16 22 16" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M4.97883 6.31492C2.99294 7.10927 2 7.50645 2 8C2 8.49355 2.99294 8.89073 4.97883 9.68508L7.7873 10.8085C9.77318 11.6028 10.7661 12 12 12C13.2339 12 14.2268 11.6028 16.2127 10.8085L19.0212 9.68508C21.0071 8.89073 22 8.49355 22 8C22 7.50645 21.0071 7.10927 19.0212 6.31492L16.2127 5.19153C14.2268 4.39718 13.2339 4 12 4C11.0461 4 10.2361 4.2374 9 4.71221" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </span>
-          ${order.status === 'completed' ? 'تکمیل' : 'در انتظار'}
-        </div>
-      </div>
-    `;
-    container.appendChild(card);
-  });
-}
 
-document.addEventListener('DOMContentLoaded', function() {
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      const svg = this.querySelector('svg');
-      if (svg) { svg.style.transform = 'scale(1.3)'; setTimeout(() => { svg.style.transform = 'scale(1.1)'; }, 150); }
-      renderOrders(this.dataset.filter, document.getElementById('searchInput').value);
-    });
-  });
-  document.getElementById('searchInput').addEventListener('input', function() {
-    const active = document.querySelector('.filter-btn.active');
-    renderOrders(active ? active.dataset.filter : 'all', this.value);
-  });
-  document.getElementById('backBtn').addEventListener('click', function() {
-    window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp.close() : window.history.back();
-  });
-  renderOrders('all', '');
-});
-</script>
+        <!-- ============================================================
+        باکس دوم - استوری‌ها
+        ============================================================ -->
+        <div class="glass-box box-stories">
+
+            <div class="header">
+                <span class="line"></span>
+                <i class="fas fa-circle"></i>
+                <h2>شبکه‌های محبوب</h2>
+                <i class="fas fa-circle"></i>
+                <span class="line"></span>
+            </div>
+
+            <div class="stories-scroll">
+
+                <div class="story-item" onclick="showToast('📸 اینستاگرام')">
+                    <div class="story-circle instagram">
+                        <div class="icon-wrap">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                    <span class="name">اینستاگرام</span>
+                </div>
+
+                <div class="story-item" onclick="showToast('📱 تلگرام')">
+                    <div class="story-circle telegram">
+                        <div class="icon-wrap">
+                            <i class="fab fa-telegram-plane"></i>
+                        </div>
+                    </div>
+                    <span class="name">تلگرام</span>
+                </div>
+
+                <div class="story-item" onclick="showToast('🎬 یوتیوب')">
+                    <div class="story-circle youtube">
+                        <div class="icon-wrap">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                    </div>
+                    <span class="name">یوتیوب</span>
+                </div>
+
+                <div class="story-item" onclick="showToast('👍 فیسبوک')">
+                    <div class="story-circle facebook">
+                        <div class="icon-wrap">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                    </div>
+                    <span class="name">فیسبوک</span>
+                </div>
+
+                <div class="story-item" onclick="showToast('🎵 تیک‌تاک')">
+                    <div class="story-circle tiktok">
+                        <div class="icon-wrap">
+                            <i class="fab fa-tiktok"></i>
+                        </div>
+                    </div>
+                    <span class="name">تیک‌تاک</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===== دکمه اسکرول ===== -->
+    <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ===== توست ===== -->
+    <div class="toast" id="toast">
+        <span id="toastMsg"></span>
+    </div>
+
+    <script>
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            t.classList.add('show');
+            clearTimeout(t._t);
+            t._t = setTimeout(() => t.classList.remove('show'), 2000);
+        }
+
+        window.addEventListener('scroll', function() {
+            const btn = document.getElementById('scrollTop');
+            if (window.scrollY > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        });
+    </script>
 
 </body>
 </html>
